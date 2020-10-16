@@ -1,0 +1,50 @@
+body {
+    background: rgb(206, 204, 204);
+}
+h1 {
+    text-align: center;
+    background: gold;
+}
+h2 {
+    margin-left:  10px;
+}
+p {
+    margin-left:  15px;
+    color: rgb(255, 251, 0);
+}
+ul {
+    margin-left:  10px;
+
+}
+li {
+    margin-left:  10px;
+
+}
+img {
+    width: 500px;
+    display: block;
+    margin: auto;
+}
+.photo_p {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+    color: dodgerblue;
+}
+.compo_p {
+    font-size: 16px;
+}
+.receipt_p {
+    font-size: 16px;
+    color: green;
+}
+ul li {
+    margin-bottom: 3px;
+    border-bottom: green solid 1px;
+    max-width: 500px;
+}
+ol li {
+    margin-bottom: 5px;
+    font-style: italic;
+}
