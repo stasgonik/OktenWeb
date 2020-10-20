@@ -1,6 +1,5 @@
 .d7 {
     width: 700px;
-    height: 400px;
     background-color: black;
     padding: 5px;
 }
@@ -8,15 +7,11 @@
     background-color: orange;
     width: 700px;
     height: 100px;
-    float: left;
-    clear: both;
 }
 .d6 {
     background-color: orange;
     width: 700px;
     height: 100px;
-    float: left;
-    clear: both;
 }
 .d2 {
     background-color: red;
