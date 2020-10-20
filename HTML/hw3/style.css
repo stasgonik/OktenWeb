@@ -18,7 +18,6 @@
     width: 200px;
     height: 200px;
     float: left;
-    clear: left;
 }
 .d3 {
     background-color: green;
@@ -37,5 +36,4 @@
     width: 100px;
     height: 200px;
     float: left;
-    clear: right;
 }
