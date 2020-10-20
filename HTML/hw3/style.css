@@ -12,6 +12,7 @@
     background-color: orange;
     width: 700px;
     height: 100px;
+    clear: both;
 }
 .d2 {
     background-color: red;
