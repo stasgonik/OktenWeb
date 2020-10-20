@@ -2,47 +2,45 @@
     width: 700px;
     height: 400px;
     background-color: black;
+    padding: 5px;
 }
 .d1 {
     background-color: orange;
-    width: 690px;
+    width: 700px;
     height: 100px;
     float: left;
     clear: both;
-    margin: 5px 0 0 5px;
 }
 .d6 {
     background-color: orange;
-    width: 690px;
+    width: 700px;
     height: 100px;
     float: left;
     clear: both;
-    margin: 0px 0 5px 5px;
 }
 .d2 {
     background-color: red;
     width: 200px;
-    height: 190px;
+    height: 200px;
     float: left;
     clear: left;
-    margin-left: 5px;
 }
 .d3 {
     background-color: green;
     width: 200px;
-    height: 190px;
+    height: 200px;
     float: left;
 }
 .d4 {
     background-color: blue;
     width: 200px;
-    height: 190px;
+    height: 200px;
     float: left;
 }
 .d5 {
     background-color: black;
-    width: 90px;
-    height: 190px;
+    width: 100px;
+    height: 200px;
     float: left;
     clear: right;
 }
