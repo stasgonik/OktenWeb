@@ -1,0 +1,31 @@
+.main {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    background-color: black;
+}
+.header, .footer {
+    background-color: orange;
+    flex-grow: 1;
+}
+.central {
+    display: flex;
+    flex-grow: 3;
+}
+.red {
+    background-color: red;
+}
+.green {
+    background-color: green;
+}
+.blue {
+    background-color: blue;
+}
+.black {
+    background-color: black;
+    
+}
+.black, .blue, .red, .green {
+    flex-basis: 25%;
+}
