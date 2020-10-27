@@ -2,67 +2,67 @@
 console.log("__Exercise 1");
 // В подальшому alert закоментовано для прискорення перегляду результату в браузері
 
-var variableA = "hello";
+let variableA = "hello";
 console.log(variableA);
 // alert(variableA);
 document.write(variableA);
 
-var variableB = "owu";
+let variableB = "owu";
 console.log(variableB);
 // alert(variableB);
 document.write(variableB);
 
-var variableC = "com";
+let variableC = "com";
 console.log(variableC);
 // alert(variableC);
 document.write(variableC);
 
-var variableD = "ua";
+let variableD = "ua";
 console.log(variableD);
 // alert(variableD);
 document.write(variableD);
 
-var variableE = 1;
+let variableE = 1;
 console.log(variableE);
 // alert(variableE);
 document.write(variableE);
 
-var variableF = 10;
+let variableF = 10;
 console.log(variableF);
 // alert(variableF);
 document.write(variableF);
 
-var variableG = -999;
+let variableG = -999;
 console.log(variableG);
 // alert(variableG);
 document.write(variableG);
 
-var variableH = 123;
+let variableH = 123;
 console.log(variableH);
 // alert(variableH);
 document.write(variableH);
 
-var variableI = 3.14;
+let variableI = 3.14;
 console.log(variableI);
 // alert(variableI);
 document.write(variableI);
 
-var variableK = 2.7;
+let variableK = 2.7;
 console.log(variableK);
 // alert(variableK);
 document.write(variableK);
 
-var variableL = 16;
+let variableL = 16;
 console.log(variableL);
 // alert(variableL);
 document.write(variableL);
 
-var variableM = true;
+let variableM = true;
 console.log(variableM);
 // alert(variableM);
 document.write(variableM);
 
-var variableN = false;
+let variableN = false;
 console.log(variableN);
 // alert(variableN);
 document.write(variableN);
@@ -75,67 +75,67 @@ document.write("<br>");
 // Exercise 2
 console.log("__Exercise 2");
 
-var variableA = "Hi!";
+variableA = "Hi!";
 console.log(variableA);
 // alert(variableA);
 document.write(variableA);
 
-var variableB = "epam";
+variableB = "epam";
 console.log(variableB);
 // alert(variableB);
 document.write(variableB);
 
-var variableC = "net";
+variableC = "net";
 console.log(variableC);
 // alert(variableC);
 document.write(variableC);
 
-var variableD = "ru";
+variableD = "ru";
 console.log(variableD);
 // alert(variableD);
 document.write(variableD);
 
-var variableE = 2;
+variableE = 2;
 console.log(variableE);
 // alert(variableE);
 document.write(variableE);
 
-var variableF = 40;
+variableF = 40;
 console.log(variableF);
 // alert(variableF);
 document.write(variableF);
 
-var variableG = -457;
+variableG = -457;
 console.log(variableG);
 // alert(variableG);
 document.write(variableG);
 
-var variableH = 321;
+variableH = 321;
 console.log(variableH);
 // alert(variableH);
 document.write(variableH);
 
-var variableI = 2.71;
+variableI = 2.71;
 console.log(variableI);
 // alert(variableI);
 document.write(variableI);
 
-var variableK = 1.2;
+variableK = 1.2;
 console.log(variableK);
 // alert(variableK);
 document.write(variableK);
 
-var variableL = 64;
+variableL = 64;
 console.log(variableL);
 // alert(variableL);
 document.write(variableL);
 
-var variableM = 'false';
+variableM = 'false';
 console.log(variableM);
 // alert(variableM);
 document.write(variableM);
 
-var variableN = 'true';
+variableN = 'true';
 console.log(variableN);
 // alert(variableN);
 document.write(variableN);
