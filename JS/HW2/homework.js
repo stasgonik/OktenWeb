@@ -17,7 +17,7 @@ console.log("__Exercise 2");
 // -- Створити пустий масив. Наповнити його будь-якими значеннями звертаючись до конкретного індексу. Вивести в консоль
 let ex2Array = [];
 ex2Array[2] = -59;
-ex2Array[5] = 543;
+ex2Array[5] = Math.random()*1000 - 500;
 ex2Array[345] = "54";
 ex2Array[29] = "Grom";
 ex2Array[78] = true;
@@ -44,7 +44,7 @@ while (ex4Index < 20) {
 // Exercise 5
 console.log("__Exercise 5");
 // - Створити масив з 10 числових елементів. Вивести в консоль всі його елементи в циклі.
-let ex5Array = [5, 35, 23, 865, 32, 76, 12, 45, 32, 43];
+let ex5Array = [Math.random()*1000 - 500, Math.random()*1000 - 500, Math.random()*1000 - 500, Math.random()*1000 - 500, Math.random()*1000 - 500, Math.random()*1000 - 500, Math.random()*1000 - 500, Math.random()*1000 - 500, Math.random()*1000 - 500, Math.random()*1000 - 500];
 for (let i = 0; i < ex5Array.length; i++) {
   console.log(ex5Array[i]);
 }
