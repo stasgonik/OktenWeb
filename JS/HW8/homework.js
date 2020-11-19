@@ -109,40 +109,41 @@
 // --Каждому контакту добавить кнопку редактироваиня. При нажати на нее появляется форма, в которой есть все необходимые инпуты для редактирования, которые уже заполнены данными объекта
 
 
-let formTarget = document.forms.target;
-let tempUser = {};
-const keyWord = "USERS";
+// let formTarget = document.forms.target;
+// let tempUser = {};
+// const keyWord = "USERS";
 
-formTarget.save.onclick = () => {
-    let person = {};
-    for (let index = 0; index < formTarget.children.length; index++) {
-        let elem = formTarget.children[index];
-        if (elem.name && elem.type !== 'submit') {
-            person[elem.name] = elem.value;
-        }
-    }   
-    person.id = new Date().getTime();
-    saveUser(person);
-}
+// formTarget.save.onclick = () => {
+//     let person = {};
+//     for (let index = 0; index < formTarget.children.length; index++) {
+//         let elem = formTarget.children[index];
+//         if (elem.name && elem.type !== 'submit') {
+//             person[elem.name] = elem.value;
+//         }
+//     }   
+//     person.id = new Date().getTime();
+//     saveUser(person);
+// }
 
-function saveUser(user) {
-    if (localStorage.hasOwnProperty(keyWord)) {
-        const users = JSON.parse(localStorage.getItem(keyWord));
-        // Предположим что такой user в базе уже может быть, проверка по ИД
-        const find = users.find(value => value.id === user.id);
-        if (find) {
-            const filter = users.filter(value => value.id !== user.id);
-            filter.push(user);
-            localStorage.setItem(keyWord, JSON.stringify(filter));
+// function saveUser(user) {
+//     if (localStorage.hasOwnProperty(keyWord)) {
+//         const users = JSON.parse(localStorage.getItem(keyWord));
+//         // Предположим что такой user в базе уже может быть, проверка по ИД
+//         const find = users.find(value => value.id === user.id);
+//         if (find) {
+//             const filter = users.filter(value => value.id !== user.id);
+//             filter.push(user);
+//             localStorage.setItem(keyWord, JSON.stringify(filter));
 
-        } else {
-            users.push(user)
-            localStorage.setItem(keyWord, JSON.stringify(users));
-        }
+//         } else {
+//             users.push(user)
+//             localStorage.setItem(keyWord, JSON.stringify(users));
+//         }
 
-    } else {
-        localStorage.setItem(keyWord, JSON.stringify([user]));
-    }
-}
+//     } else {
+//         localStorage.setItem(keyWord, JSON.stringify([user]));
+//     }
+// }
+
 
 
