@@ -3,7 +3,7 @@ let polindrom = [0, 0, 0];
 let prNum = [];
 for (let i = 10000; i < 100000; i++) {
   let flag = true;
-  for (let j = 2; j < i/2 + 1 && flag === true; j++) {
+  for (let j = 2; j < Math.sqrt(i) + 1 && flag === true; j++) {
     if (i % j === 0) {
       flag = false;
     }
@@ -33,7 +33,7 @@ for (let i = 0; i < prNum.length; i++) {
             }
             // if (i === prNum.length - 1) {
             //     console.timeEnd("answer time");
-            // } 41586 ms
+            // } 41586 ms ()
                   
         }
     })
