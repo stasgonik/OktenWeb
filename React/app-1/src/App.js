@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UserAddress from "./test/UserAddress";
+import UserAddress from "./UserAddress/UserAddress";
 
 
 class App extends Component {
