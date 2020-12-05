@@ -1,21 +1,21 @@
 import React, { Component } from "react";
+import CommentService from "../../services/CommentService"
 import CommentComponent from "./CommentComponent";
 import FullCommentComponent from "./FullCommentComponent";
 
 class AllCommentsComponent extends Component {
+
   state = { comments: [], chosenComment: null };
+  CommentService = new CommentService();
 
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/comments")
-      .then((value) => value.json())
-      .then((commentsFromApi) => {
-        this.setState({ comments: commentsFromApi });
-      });
+    this.CommentService.getAllComments().then(value => {
+      this.setState({comments: value})
+    });
   }
 
   selectThisComment = (id) => {
-    let choose = this.state.comments.find((value) => value.id === id);
-    this.setState({chosenComment : choose});
+    this.CommentService.getCommentById(id).then(value => this.setState({chosenComment: value}));
   };
 
   render() {
