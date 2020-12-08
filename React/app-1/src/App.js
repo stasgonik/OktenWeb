@@ -16,7 +16,7 @@ class App extends Component {
         <div>
           <ul>
             <li><Link className="main_link" to={"/posts"}>All Posts</Link></li>
-            <li><Link className="main_link" to={"/comments"}>All Posts</Link></li>
+            <li><Link className="main_link" to={"/comments"}>All Comments</Link></li>
           </ul>
           
           

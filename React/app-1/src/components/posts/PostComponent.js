@@ -1,15 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
 
 class PostComponent extends Component {
-    render() {
-        let {item, selectThisPost} = this.props;
-		return (
-			<div>
-				POST - {item.id} &nbsp;
-				<button onClick={() => selectThisPost(item.id)}>Full-View</button>
-			</div>
-		);
-    }
+  render() {
+    let {
+      match: { url },
+      item,
+    } = this.props;
+    return (
+      <div>
+        POST - {item.id} &nbsp;
+        <Link to={`${url}/${item.id}`}>
+          <button>Full-View</button>
+        </Link>
+        {/* <button onClick={() => selectThisPost(item.id)}>Full-View</button> */}
+      </div>
+    );
+  }
 }
 
-export default PostComponent;
+export default withRouter(PostComponent);
