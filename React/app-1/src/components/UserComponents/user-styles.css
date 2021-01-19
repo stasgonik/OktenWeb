@@ -1,0 +1,74 @@
+.items{
+    background-color: white;
+    font-size: 25px;
+border: 1px solid black;
+    padding:10px 20px ;
+    border-radius: 5px;
+display: flex;
+    justify-content: space-between;
+}
+.item-box{
+    width: 600px;
+}
+.link{
+    text-decoration: none;
+    background-color: green;
+    color: black;
+border-radius: 5px;
+    padding: 5px;
+}
+.link-post{
+    text-decoration: none;
+    background-color: orange;
+    color: black;
+    border-radius: 5px;
+   margin-left: 10px;
+    padding: 5px;
+}
+.all-users{
+    display: inline-block;
+    width: 600px;
+}
+.detailes{
+    display: inline-block;
+    background-color: white;
+    margin-left: 70px;
+    width: 500px;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-size: 25px;
+
+}
+.main-all-users-box{
+    display: flex;
+}
+.user-name{
+    font-size: 15px;
+    margin: 0;
+font-weight: lighter;
+}
+.chosenOne-container{
+    padding: 20px;
+}
+.chosen-name{
+    font-weight: bold;
+}
+ul{
+   padding: 0;
+}
+li{
+    display: flex;
+
+}
+li>p{
+    display: inline;
+}
+a:hover{
+    background-color: white;
+}
+a:active{
+    background-color: darkred;
+}
+.chosen-box{
+    border-bottom: 1px solid black;
+}
