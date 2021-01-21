@@ -1,0 +1,4 @@
+
+<app-post *ngFor="let post of posts" [post]="post" (bubbleUp)="getBubble($event)"></app-post>
+
+<app-full-post [post]="singleInfo"></app-full-post>
