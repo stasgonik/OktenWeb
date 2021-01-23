@@ -1,5 +1,9 @@
-.main {
+.link_list {
   display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+  background: green;
+  justify-content: space-around;
+  border: 1px solid darkmagenta;
+  margin-bottom: 5px;
+  padding: 3px;
+  color: cornsilk;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {cars} from '../../data/cars';
+import {cars} from '../../../data/cars';
+import {Car} from '../../../models/Car';
 
 @Component({
   selector: 'app-cars',
@@ -7,8 +8,7 @@ import {cars} from '../../data/cars';
   styleUrls: ['./cars.component.css']
 })
 export class CarsComponent implements OnInit {
-
-  cars: any[] = cars;
+  cars: Car[] = cars;
 
   constructor() { }
 

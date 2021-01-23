@@ -1,5 +1,11 @@
-<div >
-  <app-cars class="main"></app-cars>
+<!--<div >-->
+<!--  <app-cars></app-cars>-->
+<!--</div>-->
 
-</div>
+<ul class="link_list">
+  <li><a [routerLink]="['link','home']">Home</a></li>
+  <li><a [routerLink]="['link','users']">Users</a></li>
+  <li><a [routerLink]="['link','cars']">Cars</a></li>
+</ul>
 
+<router-outlet></router-outlet>
