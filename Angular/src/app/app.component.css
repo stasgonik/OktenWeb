@@ -1,0 +1,12 @@
+.show {
+  margin: 5px;
+  padding: 5px;
+  border: 2px solid black;
+  background: silver;
+}
+.single {
+  margin-bottom: 5px;
+  border: 1px solid black;
+  background: beige;
+  padding: 2px;
+}

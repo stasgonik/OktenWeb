@@ -1,2 +1,47 @@
+<form #form1="ngForm" (ngSubmit)="submit1(form1)">
+  <p><label>
+    User Name:
+    <input [(ngModel)]="user.name" name="name" minlength="2" required>
+  </label></p>
+  <p><label>
+    User Surname:
+    <input [(ngModel)]="user.surname" name="surname" minlength="2" required>
+  </label></p>
+  <p><label>
+    User Email:
+    <input [(ngModel)]="user.email" name="email" email="true" minlength="6" required>
+  </label></p>
+  <p><label>
+    User Age:
+    <input type="number" [(ngModel)]="user.age" name="age" min="0" minlength="1" required>
+  </label></p>
 
+  <button [disabled]="!form1.valid">Save User</button>
+</form>
 
+<form [formGroup]="form2" (ngSubmit)="submit2(form2)">
+  <p><label>
+    User Name:
+    <input [formControl]="name">
+  </label></p>
+  <p><label>
+    User Surname:
+    <input [formControl]="surname">
+  </label></p>
+  <p><label>
+    User Email:
+    <input [formControl]="email">
+  </label></p>
+  <p><label>
+    User Age:
+    <input [formControl]="age" type="number">
+  </label></p>
+
+  <button [disabled]="!form2.valid">Save User</button>
+</form>
+
+<div class="show">
+  <p class="single" *ngFor="let user of usersArr">
+    Name: {{user.name}} - Surname: {{user.surname}} - Age: {{user.age}} - Email: {{user.email}}
+  </p>
+</div>
