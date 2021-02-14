@@ -163,3 +163,21 @@ LIMIT 1;
 -- /*Знайти кредити, сума яких більша за середнє значення усіх кредитів*/
 SELECT * from application WHERE Sum > (SELECT AVG(Sum) from application);
 
+-- /*Знайти клієнтів, які є з того самого міста, що і клієнт, який взяв найбільшу кількість кредитів*/
+SELECT idClient, FirstName, LastName, City
+FROM client
+WHERE City = (SELECT City
+              FROM client c
+                       JOIN application a ON c.idClient = a.Client_idClient
+              GROUP BY c.idClient
+              ORDER BY COUNT(c.idClient) DESC
+              LIMIT 1);
+
+
+-- #місто чувака який набрав найбільше кредитів
+SELECT c.idClient, c.FirstName, c.LastName, City
+FROM client c
+         JOIN application a ON c.idClient = a.Client_idClient
+GROUP BY c.idClient
+ORDER BY COUNT(c.idClient) DESC
+LIMIT 1;
