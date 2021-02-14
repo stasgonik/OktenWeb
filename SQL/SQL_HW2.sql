@@ -124,7 +124,7 @@ DELETE FROM application WHERE CreditState = 'Returned';
 
 
 -- 20. Видалити кредити клієнтів, в яких друга літера прізвища є голосною.
-DELETE FROM application WHERE Client_idClient IN (SELECT idClient from client WHERE LastName LIKE '_[aeyuio]%');
+DELETE FROM application WHERE Client_idClient IN (SELECT idClient from client WHERE REGEXP_LIKE(LastName, '^.[aeyuio].*$'));
 
 
 -- Знайти львівські відділення, які видали кредитів на загальну суму більше ніж 5000
