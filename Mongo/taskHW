@@ -103,7 +103,7 @@ db.getCollection('students').find({
 }, {parents: 1})
 
 14) Не працюючих батьків влаштувати офіціантами
-db.getCollection('students').find({
+db.getCollection('students').update({
     "parents": {$exists: true},"parents.profession": null    
 }, { $set: {"parents.$.profession" : "waiter"}}, {multi: true})
 
