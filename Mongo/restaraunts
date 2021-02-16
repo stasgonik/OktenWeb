@@ -33,40 +33,56 @@ db.getCollection('rest').find({$and: [{"address.coord.0" : {$lt: -65.754168}},{c
 
 12. Write a MongoDB query to find the restaurants which do not prepare any cuisine of 'American' and achieved a score more than 70 and located in the longitude less than -65.754168.
     Note : Do this query without using $and operator.
-
+db.getCollection('rest').find({"address.coord.1" : {$lt: -65.754168}, cuisine: {$not: /american/i}, "grades.score": {$gt: 70}})
 
 13. Write a MongoDB query to find the restaurants which do not prepare any cuisine of 'American ' and achieved a grade point 'A' not belongs to the borough Brooklyn. The document must be displayed according to the cuisine in descending order.
-
+db.getCollection('rest').find({"borough" : {$not: /brooklyn/i}, cuisine: {$not: /american/i}, "grades.grade": "A"}).sort({cuisine: -1}) 
 
 14. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those restaurants which contain 'Wil' as first three letters for its name.
-
+db.getCollection('rest').find({"name": /^Wil/}, {restaurant_id: 1, name: 1, borough: 1, cuisine: 1})
 
 15. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those restaurants which contain 'ces' as last three letters for its name.
-
+db.getCollection('rest').find({"name": /ces$/}, {restaurant_id: 1, name: 1, borough: 1, cuisine: 1})
 
 16. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those restaurants which contain 'Reg' as three letters somewhere in its name.
-
+db.getCollection('rest').find({"name": /.*reg.*/i}, {restaurant_id: 1, name: 1, borough: 1, cuisine: 1})
 
 17. Write a MongoDB query to find the restaurants which belong to the borough Bronx and prepared either American or Chinese dish.
-
+db.getCollection('rest').find({"borough": "Bronx", $or: [{cuisine: "American "},{cuisine: "Chinese"}]})
 
 18. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those restaurants which belong to the borough Staten Island or Queens or Bronxor Brooklyn.
-
+db.getCollection('rest').find({"borough": {$in : [ "Staten Island", "Queens", "Bronxor Brooklyn"]}}, {restaurant_id: 1, name: 1, borough: 1, cuisine: 1})
 
 19. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those restaurants which are not belonging to the borough Staten Island or Queens or Bronxor Brooklyn.
-
+db.getCollection('rest').find({"borough": {$not: {$in : [ "Staten Island", "Queens", "Bronxor Brooklyn"]}}}, {restaurant_id: 1, name: 1, borough: 1, cuisine: 1})
 
 20. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those restaurants which achieved a score which is not more than 10.
-
+db.getCollection('rest').find({"grades.score": {$lt: 10}}, {restaurant_id: 1, name: 1, borough: 1, cuisine: 1})
 
 21. Write a MongoDB query to find the restaurant Id, name, borough and cuisine for those restaurants which prepared dish except 'American' and 'Chinees' or restaurant's name begins with letter 'Wil'.
-
+db.getCollection('rest').find(
+{$or: [{"cuisine": {$not: {$in: ["American ", "Chinese"]}}}, {"name": /^Wil/}]}, {restaurant_id: 1, name: 1, borough: 1, cuisine: 1}
+)
 
 22. Write a MongoDB query to find the restaurant Id, name, and grades for those restaurants which achieved a grade of "A" and scored 11 on an ISODate "2014-08-11T00:00:00Z" among many of survey dates..
-
+db.getCollection('rest').find(
+{grades: {
+            "date" : ISODate("2014-08-11T00:00:00Z"),
+            "grade" : "A",
+            "score" : 11
+        }},
+        {restaurant_id: 1, name: 1, "grades": 1}
+)
 
 23. Write a MongoDB query to find the restaurant Id, name and grades for those restaurants where the 2nd element of grades array contains a grade of "A" and score 9 on an ISODate "2014-08-11T00:00:00Z".
-
+db.getCollection('rest').find(
+{"grades.1": {
+            "date" : ISODate("2014-08-11T00:00:00Z"),
+            "grade" : "A",
+            "score" : 9
+        }},
+        {restaurant_id: 1, name: 1, "grades": 1}
+)
 
 24. Write a MongoDB query to find the restaurant Id, name, address and geographical location for those restaurants where 2nd element of coord array contains a value which is more than 42 and upto 52..
 
