@@ -1,0 +1,6 @@
+{
+   "name":"Karina",
+   "gender":"male",
+   "age":15,
+   "sex": "big"
+}
