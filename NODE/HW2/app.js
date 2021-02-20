@@ -63,7 +63,7 @@ app.post('/register', (req, res) => {
                     return;
                 }
             });
-            res.redirect("/login")
+            res.redirect("/users");
         } else {
             res.redirect("/regError");
         }
