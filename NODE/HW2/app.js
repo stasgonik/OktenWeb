@@ -2,9 +2,9 @@ const express = require('express');
 const expressHBS = require('express-handlebars');
 const fs = require('fs');
 const path = require('path');
-
 const app = express();
 
+//===================== Конфигурация придложения ==========================
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -15,8 +15,9 @@ app.engine(".hbs", expressHBS({
     defaultLayout: false
 }));
 app.set("views", path.join(__dirname, "static"));
+//=====================Конфигурация придложения==========================
 
-
+//===================== Авторизация ==========================
 app.get('/login', (req, res) => {
     res.render('login');
 });
@@ -27,9 +28,10 @@ app.post('/login', (req, res) => {
             console.log(err);
             return;
         }
+        let {email, password} = req.body
         const arrayUsers = JSON.parse(data.toString());
         let search = arrayUsers.findIndex(user => {
-            return (user.email === req.body.email && user.password === req.body.password);
+            return (user.email === email && user.password === password);
         });
 
         if (search !== -1) {
@@ -39,7 +41,9 @@ app.post('/login', (req, res) => {
         }
     });
 });
+//===================== Авторизация ==========================
 
+//===================== Регистрация ==========================
 app.get('/register', (req, res) => {
     res.render('register');
 });
@@ -50,9 +54,10 @@ app.post('/register', (req, res) => {
             console.log(err);
             return;
         }
+        let {email} = req.body
         const arrayUsers = JSON.parse(data.toString());
         let search = arrayUsers.find(user => {
-            return user.email === req.body.email;
+            return user.email === email;
         });
 
         if (!search) {
@@ -62,6 +67,7 @@ app.post('/register', (req, res) => {
                     console.log(err1);
                     return;
                 }
+
             });
             res.redirect("/users");
         } else {
@@ -69,17 +75,22 @@ app.post('/register', (req, res) => {
         }
     });
 });
+//===================== Регистрация ==========================
 
+//===================== Ошибка при регистрации ==========================
 app.get("/regError", (req, res) => {
     res.render('regError');
 });
+//===================== Ошибка при регистрации ==========================
 
+//===================== Рендер пользователей ==========================
 app.get('/users', (req, res) => {
     fs.readFile(path.join(__dirname, 'users.txt'), (err, data) => {
         if (err) {
             console.log(err);
             return;
         }
+
         const arrayUsers = JSON.parse(data.toString());
         res.render('users', {users: arrayUsers});
     });
@@ -92,10 +103,12 @@ app.get('/users/:userID', (req, res) => {
             console.log(err);
             return;
         }
+
         const arrayUsers = JSON.parse(data.toString());
         res.render('users', {user: arrayUsers[userID]});
     });
 });
+//===================== Рендер пользователей ==========================
 
 app.listen(5042, () => {
     console.log("Starting NODE SERVER, proceed to localhost:5042");
