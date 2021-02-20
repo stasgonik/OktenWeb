@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="general.css">
+</head>
+<body>
+<div class="main">
+
+    {{#if user}}
+        <div>
+            <p>Email: {{user.email}}</p>
+            <p>Name: {{user.name}}</p>
+            <p>Password: {{user.password}}</p>
+        </div>
+    {{/if}}
+
+    {{#if users}}
+        {{#each users}}
+            <div>
+                <p>Email: {{this.email}}</p>
+                <p>Name: {{this.name}}</p>
+                <p>Password: {{this.password}}</p>
+            </div>
+            <hr>
+        {{/each}}
+    {{/if}}
+
+    <hr>
+    <div>
+        <a href="http://localhost:5042/register"><button>To Register</button></a>
+        <a href="http://localhost:5042/login"><button>To Login</button></a>
+    </div>
+</div>
+
+</body>
+</html>

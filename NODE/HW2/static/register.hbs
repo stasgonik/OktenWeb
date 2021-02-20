@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="general.css">
+</head>
+<body>
+<div class="main">
+    <form action="/register" method="post">
+        <p><label>Email:
+            <input type="email" name="email" required>
+        </label></p>
+        <p><label>Name:
+        <input type="text" name="name" required>
+        </label></p>
+        <p><label>Password:
+            <input type="text" name="password" required>
+        </label></p>
+        <p><input type="submit" value="Register User"></p>
+    </form>
+    <hr>
+    <div>
+        <a href="http://localhost:5042/login"><button>To Login</button></a>
+        <a href="http://localhost:5042/users"><button>Show All Users</button></a>
+    </div>
+</div>
+
+</body>
+</html>

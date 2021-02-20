@@ -1,0 +1,1 @@
+[{"email":"alaros@gmail.com","name":"Stanislav","password":"abcdef"},{"email":"barbos@gmail.com","name":"Belka","password":"USSR"},{"email":"surpriseToBoys@gmail.com","name":"Karina","password":"49.5Santimeters"},{"email":"234@gdsfdas","name":"Станіслав","password":"123456"}]
