@@ -28,15 +28,15 @@ module.exports = {
         return user;
     },
 
-    createUser: async (userObject, preferL) => {
+    createUser: async (user, preferL) => {
         const buffer = await readFile(dbPath);
         const db = JSON.parse(buffer.toString());
 
-        if(db.find(dbUser => dbUser.username === userObject.username)) {
+        if(db.find(dbUser => dbUser.username === user.username)) {
             throw new Error(errorMessage.USER_ALREADY_EXIST[preferL]);
         }
 
-        db.push(userObject);
+        db.push(user);
         await writeFile(dbPath, JSON.stringify(db));
     },
 
@@ -48,12 +48,16 @@ module.exports = {
         await writeFile(dbPath, JSON.stringify(db));
     },
 
-    // findUserByUsername: async (username) => {
-    //     const buffer = await readFile(dbPath);
-    //     const db = JSON.parse(buffer.toString());
-    //
-    //     const user = db.find(user => user.username === username)
-    //
-    //     return user;
-    // }
+    findUserByUsername: async (username, preferL) => {
+        const buffer = await readFile(dbPath);
+        const db = JSON.parse(buffer.toString());
+
+        const user = db.find(user => user.username === username);
+
+        if(!user) {
+            throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
+        }
+
+        return user;
+    }
 }
