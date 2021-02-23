@@ -52,17 +52,16 @@ module.exports = {
         }
     },
 
-    // getUserByUsername: async (req, res) => {
-    //     try {
-    //         const { username } = req.body;
-    //
-    //         const user = await userService.findUserByUsername(username);
-    //
-    //         res.status(statusCode.OK).json(user);
-    //     }
-    //     catch (e) {
-    //         res.status(statusCode.BAD_REQUEST).json(e.message);
-    //     }
-    // },
+    getUserByUsername: async (req, res) => {
+        try {
+            const { username } = req.params;
+            const { preferL = 'en' } = req.body;
+            const user = await userService.findUserByUsername(username, preferL);
 
+            res.status(statusCode.OK).json(user);
+        }
+        catch (e) {
+            res.status(statusCode.BAD_REQUEST).json(e.message);
+        }
+    },
 }
