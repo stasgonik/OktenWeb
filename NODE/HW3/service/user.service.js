@@ -5,6 +5,7 @@ const fs = require('fs');
 const errorMessage = require('../message/error.message');
 
 const dbPath = path.join(process.cwd(), 'dataBase', 'users.json');
+
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
@@ -12,24 +13,26 @@ const writeFile = promisify(fs.writeFile);
 module.exports = {
     findUsers: async (preferL, query) => {
         const buffer = await readFile(dbPath);
+
         const db = JSON.parse(buffer.toString());
-        const {username} = query
+        const {username} = query;
 
-        if(username) {
-            const user = db.find(user => user.username === username);
-
-            if(!user) {
-                throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
-            }
-
-            return user;
+        if (!username) {
+            return db;
         }
 
-        return db;
+        const user = db.find(user => user.username === username);
+
+        if(!user) {
+            throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
+        }
+
+        return user;
     },
 
     findUserById: async (userId, preferL) => {
         const buffer = await readFile(dbPath);
+
         const user = JSON.parse(buffer.toString())[userId];
 
         if(!user) {
@@ -42,6 +45,7 @@ module.exports = {
 
     createUser: async (user, preferL) => {
         const buffer = await readFile(dbPath);
+
         const db = JSON.parse(buffer.toString());
 
         if(db.find(dbUser => dbUser.username === user.username)) {
@@ -54,6 +58,7 @@ module.exports = {
 
     deleteUser: async (userId) => {
         const buffer = await readFile(dbPath);
+
         const db = JSON.parse(buffer.toString());
 
         db.splice(userId, 1);
@@ -62,6 +67,7 @@ module.exports = {
 
     // findUserByUsername: async (username, preferL) => {
     //     const buffer = await readFile(dbPath);
+
     //     const db = JSON.parse(buffer.toString());
     //
     //     const user = db.find(user => user.username === username);

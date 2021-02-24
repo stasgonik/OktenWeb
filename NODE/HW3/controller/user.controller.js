@@ -6,6 +6,7 @@ module.exports = {
     getUsers: async (req, res) => {
         try {
             const { preferL = 'en' } = req.body;
+
             const users = await userService.findUsers(preferL, req.query);
 
             res.status(statusCode.OK).json(users);
@@ -18,6 +19,7 @@ module.exports = {
         try {
             const { userId } = req.params;
             const { preferL = 'en' } = req.body;
+
             const user = await userService.findUserById(userId, preferL);
 
             res.status(statusCode.OK).json(user);
@@ -31,6 +33,7 @@ module.exports = {
         try {
             const { username, password, preferL = 'en' } = req.body;
             const user = {username, password}
+
             await userService.createUser(user, preferL);
 
             res.status(statusCode.CREATED).json(successMessage.USER_CREATED[preferL]);
@@ -44,6 +47,7 @@ module.exports = {
         try {
             const { userId } = req.params;
             const { preferL = 'en' } = req.body;
+
             await userService.deleteUser(userId);
 
             res.status(statusCode.OK).json(successMessage.USER_DELETED[preferL]);
@@ -57,6 +61,7 @@ module.exports = {
     //     try {
     //         const { username } = req.params;
     //         const { preferL = 'en' } = req.body;
+
     //         const user = await userService.findUserByUsername(username, preferL);
     //
     //         res.status(statusCode.OK).json(user);
