@@ -3,9 +3,10 @@ const statusCode = require('../constant/statusCode.enum');
 const successMessage = require("../message/success.message");
 
 module.exports = {
-    getAllUsers: async (req, res) => {
+    getUsers: async (req, res) => {
         try {
-            const users = await userService.findUsers();
+            const { preferL = 'en' } = req.body;
+            const users = await userService.findUsers(preferL, req.query);
 
             res.status(statusCode.OK).json(users);
         } catch (e) {
@@ -52,16 +53,16 @@ module.exports = {
         }
     },
 
-    getUserByUsername: async (req, res) => {
-        try {
-            const { username } = req.params;
-            const { preferL = 'en' } = req.body;
-            const user = await userService.findUserByUsername(username, preferL);
-
-            res.status(statusCode.OK).json(user);
-        }
-        catch (e) {
-            res.status(statusCode.BAD_REQUEST).json(e.message);
-        }
-    },
+    // getUserByUsername: async (req, res) => {
+    //     try {
+    //         const { username } = req.params;
+    //         const { preferL = 'en' } = req.body;
+    //         const user = await userService.findUserByUsername(username, preferL);
+    //
+    //         res.status(statusCode.OK).json(user);
+    //     }
+    //     catch (e) {
+    //         res.status(statusCode.BAD_REQUEST).json(e.message);
+    //     }
+    // },
 }

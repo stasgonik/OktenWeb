@@ -10,10 +10,22 @@ const writeFile = promisify(fs.writeFile);
 
 
 module.exports = {
-    findUsers: async () => {
+    findUsers: async (preferL, query) => {
         const buffer = await readFile(dbPath);
+        const db = JSON.parse(buffer.toString());
+        const {username} = query
 
-        return JSON.parse(buffer.toString());
+        if(username) {
+            const user = db.find(user => user.username === username);
+
+            if(!user) {
+                throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
+            }
+
+            return user;
+        }
+
+        return db;
     },
 
     findUserById: async (userId, preferL) => {
@@ -48,16 +60,16 @@ module.exports = {
         await writeFile(dbPath, JSON.stringify(db));
     },
 
-    findUserByUsername: async (username, preferL) => {
-        const buffer = await readFile(dbPath);
-        const db = JSON.parse(buffer.toString());
-
-        const user = db.find(user => user.username === username);
-
-        if(!user) {
-            throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
-        }
-
-        return user;
-    }
+    // findUserByUsername: async (username, preferL) => {
+    //     const buffer = await readFile(dbPath);
+    //     const db = JSON.parse(buffer.toString());
+    //
+    //     const user = db.find(user => user.username === username);
+    //
+    //     if(!user) {
+    //         throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
+    //     }
+    //
+    //     return user;
+    // }
 }
