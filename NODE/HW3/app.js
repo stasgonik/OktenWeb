@@ -11,4 +11,4 @@ app.use('/', apiRouter);
 
 app.listen(5042, () => {
     console.log('Starting NODE SERVER, proceed to localhost:5042');
-})
+});

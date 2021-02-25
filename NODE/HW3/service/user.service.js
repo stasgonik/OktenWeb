@@ -1,5 +1,5 @@
 const path = require('path');
-const {promisify} = require('util');
+const { promisify } = require('util');
 const fs = require('fs');
 
 const errorMessage = require('../message/error.message');
@@ -9,21 +9,20 @@ const dbPath = path.join(process.cwd(), 'dataBase', 'users.json');
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
-
 module.exports = {
     findUsers: async (preferL, query) => {
         const buffer = await readFile(dbPath);
 
         const db = JSON.parse(buffer.toString());
-        const {username} = query;
+        const { username } = query;
 
         if (!username) {
             return db;
         }
 
-        const user = db.find(user => user.username === username);
+        const user = db.find((dbUser) => dbUser.username === username);
 
-        if(!user) {
+        if (!user) {
             throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
         }
 
@@ -35,10 +34,9 @@ module.exports = {
 
         const user = JSON.parse(buffer.toString())[userId];
 
-        if(!user) {
+        if (!user) {
             throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
         }
-
 
         return user;
     },
@@ -48,7 +46,7 @@ module.exports = {
 
         const db = JSON.parse(buffer.toString());
 
-        if(db.find(dbUser => dbUser.username === user.username)) {
+        if (db.find((dbUser) => dbUser.username === user.username)) {
             throw new Error(errorMessage.USER_ALREADY_EXIST[preferL]);
         }
 
@@ -78,4 +76,4 @@ module.exports = {
     //
     //     return user;
     // }
-}
+};

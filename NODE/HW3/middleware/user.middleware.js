@@ -5,7 +5,7 @@ module.exports = {
     isIdValid: (req, res, next) => {
         try {
             const userId = +req.params.userId;
-            const {preferL = 'en' } = req.body;
+            const { preferL = 'en' } = req.body;
 
             if (userId < 0 || !Number.isInteger(userId) || Number.isNaN(userId)) {
                 throw new Error(errorMessage.ID_IS_INVALID[preferL]);
@@ -51,4 +51,4 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     }
-}
+};

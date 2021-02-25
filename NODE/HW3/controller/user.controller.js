@@ -1,6 +1,6 @@
 const userService = require('../service/user.service');
 const statusCode = require('../constant/statusCode.enum');
-const successMessage = require("../message/success.message");
+const successMessage = require('../message/success.message');
 
 module.exports = {
     getUsers: async (req, res) => {
@@ -23,8 +23,7 @@ module.exports = {
             const user = await userService.findUserById(userId, preferL);
 
             res.status(statusCode.OK).json(user);
-        }
-        catch (e) {
+        } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
@@ -32,13 +31,12 @@ module.exports = {
     createUser: async (req, res) => {
         try {
             const { username, password, preferL = 'en' } = req.body;
-            const user = {username, password}
+            const user = { username, password };
 
             await userService.createUser(user, preferL);
 
             res.status(statusCode.CREATED).json(successMessage.USER_CREATED[preferL]);
-        }
-        catch (e) {
+        } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
@@ -51,8 +49,7 @@ module.exports = {
             await userService.deleteUser(userId);
 
             res.status(statusCode.OK).json(successMessage.USER_DELETED[preferL]);
-        }
-        catch (e) {
+        } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
@@ -70,4 +67,4 @@ module.exports = {
     //         res.status(statusCode.BAD_REQUEST).json(e.message);
     //     }
     // },
-}
+};
