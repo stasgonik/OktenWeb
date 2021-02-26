@@ -85,6 +85,7 @@ module.exports = {
             { ignoreArrayIndexes: true },
         ],
         'no-multi-spaces': 'error',
+        'linebreak-style': 0,
         'no-multi-str': 'error',
         'no-multiple-empty-lines': 'error',
         'no-new': 'error',
