@@ -9,7 +9,7 @@ module.exports = {
 
         const find = await Address.find(query);
 
-        if (!find) {
+        if (!find.length) {
             throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
         }
 

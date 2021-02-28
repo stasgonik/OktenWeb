@@ -5,12 +5,12 @@ const successMessage = require('../message/success.message');
 module.exports = {
     getAddresses: async (req, res) => {
         try {
-            /*
-             не придумал как исключить preferL от req.query и отправить их раздельно,
-              так что временно передаю через req.body несмотря на отсутствие такого у GET
-            */
-            const { preferL = 'en' } = req.body;
-            const addresses = await addressService.findAddresses(req.query, preferL);
+            const { preferL = 'en' } = req.query;
+            const filter = req.query;
+
+            delete filter.preferL;
+
+            const addresses = await addressService.findAddresses(filter, preferL);
 
             res.status(statusCode.OK).json(addresses);
         } catch (e) {

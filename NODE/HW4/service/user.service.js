@@ -11,7 +11,7 @@ module.exports = {
 
         const find = await User.find(query);
 
-        if (!find) {
+        if (!find.length) {
             throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
         }
 
