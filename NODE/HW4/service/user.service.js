@@ -1,38 +1,13 @@
-const errorMessage = require('../message/error.message');
 const User = require('../dataBase/model/User');
 require('../dataBase/model/House');
 require('../dataBase/model/Address');
 
 module.exports = {
-    findUsers: async (query, preferL) => {
-        if (!query) {
-            return User.find();
-        }
+    findUsers: (query) => User.find(query),
 
-        const find = await User.find(query);
+    createUser: (user) => User.create(user),
 
-        if (!find.length) {
-            throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
-        }
+    findUserById: (userId) => User.findById(userId),
 
-        return find;
-    },
-
-    createUser: (user) => {
-        User.create(user);
-    },
-
-    findUserById: async (userId, preferL) => {
-        const user = await User.findById(userId);
-
-        if (!user) {
-            throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
-        }
-
-        return user;
-    },
-
-    deleteUser: (userId) => {
-        User.findByIdAndRemove(userId);
-    },
+    deleteUser: (userId) => User.findByIdAndRemove(userId),
 };

@@ -1,37 +1,12 @@
-const errorMessage = require('../message/error.message');
 const House = require('../dataBase/model/House');
 require('../dataBase/model/Address');
 
 module.exports = {
-    findHouses: async (query, preferL) => {
-        if (!query) {
-            return House.find();
-        }
+    findHouses: (query) => House.find(query),
 
-        const find = await House.find(query);
+    createHouse: (house) => House.create(house),
 
-        if (!find.length) {
-            throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
-        }
+    findHouseById: (houseId) => House.findById(houseId),
 
-        return find;
-    },
-
-    createHouse: (house) => {
-        House.create(house);
-    },
-
-    findHouseById: async (houseId, preferL) => {
-        const house = await House.findById(houseId);
-
-        if (!house) {
-            throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
-        }
-
-        return house;
-    },
-
-    deleteHouse: (houseId) => {
-        House.findByIdAndRemove(houseId);
-    },
+    deleteHouse: (houseId) => House.findByIdAndRemove(houseId),
 };

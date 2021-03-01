@@ -1,36 +1,11 @@
-const errorMessage = require('../message/error.message');
 const Address = require('../dataBase/model/Address');
 
 module.exports = {
-    findAddresses: async (query, preferL) => {
-        if (!query) {
-            return Address.find();
-        }
+    findAddresses: (query) => Address.find(query),
 
-        const find = await Address.find(query);
+    createAddress: (address) => Address.create(address),
 
-        if (!find.length) {
-            throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
-        }
+    findAddressById: (addressId) => Address.findById(addressId),
 
-        return find;
-    },
-
-    createAddress: (address) => {
-        Address.create(address);
-    },
-
-    getSingleAddress: async (addressId, preferL) => {
-        const address = await Address.findById(addressId);
-
-        if (!address) {
-            throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
-        }
-
-        return address;
-    },
-
-    deleteSingleAddress: (addressId) => {
-        Address.findByIdAndRemove(addressId);
-    },
+    deleteAddress: (addressId) => Address.findByIdAndRemove(addressId),
 };

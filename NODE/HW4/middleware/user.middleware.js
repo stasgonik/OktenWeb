@@ -1,3 +1,4 @@
+const userService = require('../service/user.service');
 const statusCode = require('../constant/statusCode.enum');
 const errorMessage = require('../message/error.message');
 
@@ -40,6 +41,42 @@ module.exports = {
 
             if (age.length > 3) {
                 throw new Error(errorMessage.TOO_BIG_AGE[preferL]);
+            }
+
+            next();
+        } catch (e) {
+            res.status(statusCode.BAD_REQUEST).json(e.message);
+        }
+    },
+
+    isUserSearchResultExist: async (req, res, next) => {
+        try {
+            const { preferL = 'en' } = req.query;
+            const filter = req.query;
+
+            delete filter.preferL;
+
+            const users = await userService.findUsers(filter, preferL);
+
+            if (filter && !users.length) {
+                throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
+            }
+
+            next();
+        } catch (e) {
+            res.status(statusCode.BAD_REQUEST).json(e.message);
+        }
+    },
+
+    isUserExist: async (req, res, next) => {
+        try {
+            const { userId } = req.params;
+            const { preferL = 'en' } = req.query;
+
+            const user = await userService.findUserById(userId);
+
+            if (!user) {
+                throw new Error(errorMessage.NO_RESULT_FOUND[preferL]);
             }
 
             next();

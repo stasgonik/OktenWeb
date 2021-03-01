@@ -5,12 +5,11 @@ const successMessage = require('../message/success.message');
 module.exports = {
     getAddresses: async (req, res) => {
         try {
-            const { preferL = 'en' } = req.query;
             const filter = req.query;
 
             delete filter.preferL;
 
-            const addresses = await addressService.findAddresses(filter, preferL);
+            const addresses = await addressService.findAddresses(filter);
 
             res.status(statusCode.OK).json(addresses);
         } catch (e) {
@@ -33,9 +32,8 @@ module.exports = {
     getSingleAddress: async (req, res) => {
         try {
             const { addressId } = req.params;
-            const { preferL = 'en' } = req.query;
 
-            const address = await addressService.findAddressById(addressId, preferL);
+            const address = await addressService.findAddressById(addressId);
 
             res.status(statusCode.OK).json(address);
         } catch (e) {

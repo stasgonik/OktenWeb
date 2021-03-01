@@ -5,12 +5,11 @@ const successMessage = require('../message/success.message');
 module.exports = {
     getUsers: async (req, res) => {
         try {
-            const { preferL = 'en' } = req.query;
             const filter = req.query;
 
             delete filter.preferL;
 
-            const users = await userService.findUsers(filter, preferL);
+            const users = await userService.findUsers(filter);
 
             res.status(statusCode.OK).json(users);
         } catch (e) {
@@ -33,9 +32,8 @@ module.exports = {
     getSingleUser: async (req, res) => {
         try {
             const { userId } = req.params;
-            const { preferL = 'en' } = req.query;
 
-            const user = await userService.findUserById(userId, preferL);
+            const user = await userService.findUserById(userId);
 
             res.status(statusCode.OK).json(user);
         } catch (e) {
