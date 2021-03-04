@@ -73,7 +73,7 @@ module.exports = {
     checkRefreshToken: async (req, res, next) => {
         try {
             const { preferL = 'en' } = req.query;
-            const refresh_token = req.get(constant.REFRESH_TOKEN);
+            const refresh_token = req.get(constant.AUTHORIZATION);
 
             if (!refresh_token) {
                 throw new Error(errorMessage.ABSENT_REFRESH_TOKEN[preferL]);
