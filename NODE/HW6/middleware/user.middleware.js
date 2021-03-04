@@ -116,10 +116,6 @@ module.exports = {
             const { preferL = 'en' } = req.query;
             const { user } = req;
 
-            console.log(user);
-
-            console.log(userId);
-
             if (userId !== user.id) {
                 throw new Error(errorMessage.UNAUTHORISED_ACCESS[preferL]);
             }

@@ -63,7 +63,6 @@ module.exports = {
             }
 
             req.user = tokens._user_id;
-            console.log(req.user);
 
             next();
         } catch (e) {
@@ -93,7 +92,6 @@ module.exports = {
             }
 
             req.oldTokens = tokens;
-            console.log(req.oldTokens);
 
             next();
         } catch (e) {
