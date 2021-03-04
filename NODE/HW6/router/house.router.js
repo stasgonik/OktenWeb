@@ -10,14 +10,13 @@ router.get('/', authMiddleware.checkAccessToken,
 
 router.post('/', houseMiddleware.isHouseValid, houseController.createHouse);
 
-router.get('/:houseId', authMiddleware.checkAccessToken,
+router.use('/:houseId',
+    authMiddleware.checkAccessToken,
     houseMiddleware.isIdValid,
-    houseMiddleware.isHouseExist,
-    houseController.getSingleHouse);
+    houseMiddleware.isHouseExist);
 
-router.delete('/:houseId', authMiddleware.checkAccessToken,
-    houseMiddleware.isIdValid,
-    houseMiddleware.isHouseExist,
-    houseController.deleteSingleHouse);
+router.get('/:houseId', houseController.getSingleHouse);
+
+router.delete('/:houseId', houseController.deleteSingleHouse);
 
 module.exports = router;
