@@ -6,9 +6,9 @@ const { utilValidators, addressValidators } = require('../validator');
 module.exports = {
     isIdValid: async (req, res, next) => {
         try {
-            const { userId } = req.params;
+            const { addressId } = req.params;
 
-            const { error } = await utilValidators.idMongooseValidator.validate(userId);
+            const { error } = await utilValidators.idMongooseValidator.validate(addressId);
 
             if (error) {
                 throw new Error(error.details[0].message);
