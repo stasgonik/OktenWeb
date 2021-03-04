@@ -20,5 +20,9 @@ module.exports = {
         await Token.create({ ...tokens, _user_id: oldTokens._user_id });
 
         return tokens;
+    },
+    
+    deleteAllUserTokens: async (userId) => {
+        await Token.remove({ _user_id: userId });
     }
 };
