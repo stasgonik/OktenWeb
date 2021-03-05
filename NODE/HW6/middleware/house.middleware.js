@@ -56,6 +56,7 @@ module.exports = {
         }
     },
 
+    /*
     isHouseSearchResultExist: async (req, res, next) => {
         try {
             const { preferL = 'en' } = req.query;
@@ -74,6 +75,7 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
+    */
 
     isHouseExist: async (req, res, next) => {
         try {

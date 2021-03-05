@@ -5,7 +5,6 @@ const { addressMiddleware, authMiddleware } = require('../middleware');
 
 router.get('/', authMiddleware.checkAccessToken,
     addressMiddleware.isSearchQueryValid,
-    addressMiddleware.isAddressSearchResultExist,
     addressController.getAddresses);
 
 router.post('/', addressMiddleware.isAddressValid, addressController.createAddress);

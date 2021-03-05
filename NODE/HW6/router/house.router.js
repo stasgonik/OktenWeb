@@ -5,7 +5,6 @@ const { authMiddleware, houseMiddleware } = require('../middleware');
 
 router.get('/', authMiddleware.checkAccessToken,
     houseMiddleware.isSearchQueryValid,
-    houseMiddleware.isHouseSearchResultExist,
     houseController.getHouses);
 
 router.post('/', houseMiddleware.isHouseValid, houseController.createHouse);

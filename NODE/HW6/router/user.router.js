@@ -5,7 +5,6 @@ const { authMiddleware, userMiddleware } = require('../middleware');
 
 router.get('/', authMiddleware.checkAccessToken,
     userMiddleware.isSearchQueryValid,
-    userMiddleware.isUserSearchResultExist,
     userController.getUsers);
 
 router.post('/', userMiddleware.isUserValid, userMiddleware.isUserAlreadyExist, userController.createUser);
