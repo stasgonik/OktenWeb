@@ -9,14 +9,13 @@ router.get('/', authMiddleware.checkAccessToken,
 
 router.post('/', addressMiddleware.isAddressValid, addressController.createAddress);
 
-router.get('/:addressId', authMiddleware.checkAccessToken,
+router.use('/:addressId',
+    authMiddleware.checkAccessToken,
     addressMiddleware.isIdValid,
-    addressMiddleware.isAddressExist,
-    addressController.getSingleAddress);
+    addressMiddleware.isAddressExist);
 
-router.delete('/:addressId', authMiddleware.checkAccessToken,
-    addressMiddleware.isIdValid,
-    addressMiddleware.isAddressExist,
-    addressController.deleteSingleAddress);
+router.get('/:addressId', addressController.getSingleAddress);
+
+router.delete('/:addressId', addressController.deleteSingleAddress);
 
 module.exports = router;

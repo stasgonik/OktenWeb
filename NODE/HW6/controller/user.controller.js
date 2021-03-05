@@ -1,4 +1,4 @@
-const { userService } = require('../service');
+const { authService, userService } = require('../service');
 const { statusCodeEnum: statusCode } = require('../constant');
 const { successMessage } = require('../message');
 const { passwordHasher } = require('../helper');
@@ -49,6 +49,8 @@ module.exports = {
         try {
             const { preferL = 'en' } = req.query;
             const { userId } = req.params;
+
+            await authService.deleteAllUserTokens(req.user._id);
 
             await userService.deleteUser(userId);
 

@@ -9,16 +9,13 @@ router.get('/', authMiddleware.checkAccessToken,
 
 router.post('/', userMiddleware.isUserValid, userMiddleware.isUserAlreadyExist, userController.createUser);
 
-router.get('/:userId', authMiddleware.checkAccessToken,
+router.use('/:userId',
+    authMiddleware.checkAccessToken,
     userMiddleware.isIdValid,
-    userMiddleware.accessRightsCheck,
-    userMiddleware.isUserExist,
-    userController.getSingleUser);
+    userMiddleware.accessRightsCheck);
 
-router.delete('/:userId', authMiddleware.checkAccessToken,
-    userMiddleware.isIdValid,
-    userMiddleware.accessRightsCheck,
-    userMiddleware.isUserExist,
-    userController.deleteSingleUser);
+router.get('/:userId', userController.getSingleUser);
+
+router.delete('/:userId', userController.deleteSingleUser);
 
 module.exports = router;
