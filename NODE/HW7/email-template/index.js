@@ -6,6 +6,11 @@ module.exports = {
         subject: 'Welcome on board'
     },
 
+    [emailActionEnum.NEW_MEMBER]: {
+        templateName: 'new-member',
+        subject: 'We have a new member'
+    },
+
     [emailActionEnum.ACCOUNT_ACCESSED]: {
         templateName: 'user-access',
         subject: 'Your account was accessed'
@@ -20,4 +25,5 @@ module.exports = {
         templateName: 'user-deleted',
         subject: 'Your account was deleted'
     },
+
 };
