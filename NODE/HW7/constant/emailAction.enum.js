@@ -3,4 +3,5 @@ module.exports = {
     ACCOUNT_ACCESSED: 2,
     ACCOUNT_DELETED: 3,
     ACCOUNT_INFO_ACCESSED: 4,
+    NEW_MEMBER: 5,
 };

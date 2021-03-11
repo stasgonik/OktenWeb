@@ -25,11 +25,20 @@ module.exports = {
 
             const hashPassword = await passwordHasher.hash(password);
 
+            const allUsers = await userService.findUsers();
+
+            const allEmails = [];
+            allUsers.forEach((user) => {
+                allEmails.push(user.email);
+            });
+
             await userService.createUser({ ...req.body, password: hashPassword });
 
             const { full_name } = await userService.findOneUser({ email });
 
             await emailService.sendMail(email, emailAction.ACCOUNT_CREATED, { name: full_name });
+
+            await emailService.sendMail(allEmails, emailAction.NEW_MEMBER, { name: full_name });
 
             res.status(statusCode.CREATED).json(successMessage.USER_CREATED[preferL]);
         } catch (e) {
