@@ -50,5 +50,11 @@ module.exports = {
         const updateObject = updateQueryBuild(uploadPath, itemType);
 
         await ownerService.updateOne(ownerId, updateObject);
+    },
+
+    deleteUserFiles: async (ownerId, ownerType) => {
+        const filePath = path.join(process.cwd(), 'public', `${ownerType}`, `${ownerId}`);
+
+        await fs.rmdir(filePath, { recursive: true });
     }
 };
