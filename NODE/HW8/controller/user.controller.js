@@ -78,6 +78,8 @@ module.exports = {
             await authService.deleteAllUserTokens(_id);
 
             await userService.deleteUser(userId);
+            
+            await fileService.deleteUserFiles(_id, dataBaseSchemaEnum.USER);
 
             await emailService.sendMail(email, emailAction.ACCOUNT_DELETED, { name: full_name });
 
