@@ -66,6 +66,8 @@ module.exports = {
             const { houseId } = req.params;
 
             await houseService.deleteHouse(houseId);
+            
+            await fileService.deleteUserFiles(houseId, dataBaseSchemaEnum.HOUSE);   
 
             res.status(statusCode.OK).json(successMessage.HOUSE_DELETED[preferL]);
         } catch (e) {
