@@ -66,6 +66,8 @@ module.exports = {
             const { addressId } = req.params;
 
             await addressService.deleteAddress(addressId);
+            
+            await fileService.deleteUserFiles(addressId, dataBaseSchemaEnum.ADDRESS);
 
             res.status(statusCode.OK).json(successMessage.ADDRESS_DELETED[preferL]);
         } catch (e) {
