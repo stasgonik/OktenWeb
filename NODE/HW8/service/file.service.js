@@ -6,7 +6,7 @@ const { itemTypeEnum, statusCodeEnum: statusCode } = require('../constant');
 const { ErrorHandler } = require('../helper');
 const { errorMessage } = require('../message');
 
-const fileDirBuilder = (docName, itemType, ownerId, ownerType) => {
+const _fileDirBuilder = (docName, itemType, ownerId, ownerType) => {
     const pathWithoutPublic = path.join(`${ownerType}`, `${ownerId}`, `${itemType}`);
     const fileDir = path.join(process.cwd(), 'public', pathWithoutPublic);
     const fileExtension = path.extname(`${docName}`);
@@ -18,12 +18,12 @@ const fileDirBuilder = (docName, itemType, ownerId, ownerType) => {
     return { fileDir, finalFilePath, uploadPath };
 };
 
-const uploadFile = async (file, fileDir, finalFilePath) => {
+const _uploadFile = async (file, fileDir, finalFilePath) => {
     await fs.mkdir(fileDir, { recursive: true });
     await file.mv(finalFilePath);
 };
 
-const updateQueryBuild = (uploadPath, itemType) => {
+const _updateQueryBuild = (uploadPath, itemType) => {
     let updateObject = {};
 
     if (itemType === itemTypeEnum.AVATAR) {
@@ -43,11 +43,11 @@ const updateQueryBuild = (uploadPath, itemType) => {
 
 module.exports = {
     uploadFile: async (file, itemType, ownerId, ownerType, ownerService) => {
-        const { fileDir, finalFilePath, uploadPath } = fileDirBuilder(file.name, itemType, ownerId, ownerType);
+        const { fileDir, finalFilePath, uploadPath } = _fileDirBuilder(file.name, itemType, ownerId, ownerType);
 
-        await uploadFile(file, fileDir, finalFilePath);
+        await _uploadFile(file, fileDir, finalFilePath);
 
-        const updateObject = updateQueryBuild(uploadPath, itemType);
+        const updateObject = _updateQueryBuild(uploadPath, itemType);
 
         await ownerService.updateOne(ownerId, updateObject);
     },
