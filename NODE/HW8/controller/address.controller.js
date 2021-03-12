@@ -23,8 +23,7 @@ module.exports = {
 
     createAddress: async (req, res, next) => {
         try {
-            const { preferL = 'en' } = req.query;
-            const { docs } = req;
+            const { docs, query: { preferL = 'en' } } = req;
 
             const address = await addressService.createAddress(req.body);
 
@@ -66,7 +65,7 @@ module.exports = {
             const { addressId } = req.params;
 
             await addressService.deleteAddress(addressId);
-            
+
             await fileService.deleteUserFiles(addressId, dataBaseSchemaEnum.ADDRESS);
 
             res.status(statusCode.OK).json(successMessage.ADDRESS_DELETED[preferL]);

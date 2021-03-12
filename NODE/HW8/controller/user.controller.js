@@ -30,9 +30,7 @@ module.exports = {
 
     createUser: async (req, res, next) => {
         try {
-            const { preferL = 'en' } = req.query;
-            const { email, password } = req.body;
-            const { avatar } = req;
+            const { avatar, query: { preferL = 'en' }, body: { email, password } } = req;
 
             const hashPassword = await passwordHasher.hash(password);
 
@@ -78,7 +76,7 @@ module.exports = {
             await authService.deleteAllUserTokens(_id);
 
             await userService.deleteUser(userId);
-            
+
             await fileService.deleteUserFiles(_id, dataBaseSchemaEnum.USER);
 
             await emailService.sendMail(email, emailAction.ACCOUNT_DELETED, { name: full_name });

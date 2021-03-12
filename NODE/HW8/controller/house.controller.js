@@ -23,8 +23,7 @@ module.exports = {
 
     createHouse: async (req, res, next) => {
         try {
-            const { preferL = 'en' } = req.query;
-            const { photos } = req;
+            const { photos, query: { preferL = 'en' } } = req;
 
             const house = await houseService.createHouse(req.body);
 
@@ -66,8 +65,8 @@ module.exports = {
             const { houseId } = req.params;
 
             await houseService.deleteHouse(houseId);
-            
-            await fileService.deleteUserFiles(houseId, dataBaseSchemaEnum.HOUSE);   
+
+            await fileService.deleteUserFiles(houseId, dataBaseSchemaEnum.HOUSE);
 
             res.status(statusCode.OK).json(successMessage.HOUSE_DELETED[preferL]);
         } catch (e) {
