@@ -20,7 +20,9 @@ module.exports = Joi.object({
         .integer()
         .min(6)
         .max(160)
-        .optional(),
+        .optional()
+        .when('age_GTE', ({ is: Joi.exist(), then: Joi.forbidden() }))
+        .when('age_LTE', ({ is: Joi.exist(), then: Joi.forbidden() })),
 
     age_GTE: Joi.number()
         .integer()

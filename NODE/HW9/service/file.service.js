@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs-extra').promises;
 
-const { queryBuilder: { updateObjectBuilder }, utilHelper: { fileDirBuilder } } = require('../helper');
+const { queryBuilder: { fileUpdateObjectBuilder }, utilHelper: { fileDirBuilder } } = require('../helper');
 
 const _uploadFile = async (file, fileDir, finalFilePath) => {
     await fs.mkdir(fileDir, { recursive: true });
@@ -20,7 +20,7 @@ module.exports = {
 
         await _uploadFile(file, fileDir, finalFilePath);
 
-        const updateObject = updateObjectBuilder(uploadPath, itemType);
+        const updateObject = fileUpdateObjectBuilder(uploadPath, itemType);
 
         await ownerService.updateOne(ownerId, updateObject);
     },

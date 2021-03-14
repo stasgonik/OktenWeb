@@ -4,7 +4,9 @@ module.exports = Joi.object({
     area: Joi.number()
         .min(4)
         .max(10000)
-        .optional(),
+        .optional()
+        .when('area_GTE', ({ is: Joi.exist(), then: Joi.forbidden() }))
+        .when('area_LTE', ({ is: Joi.exist(), then: Joi.forbidden() })),
 
     area_GTE: Joi.number()
         .min(4)
@@ -19,7 +21,9 @@ module.exports = Joi.object({
     price: Joi.number()
         .integer()
         .min(1)
-        .optional(),
+        .optional()
+        .when('price_GTE', ({ is: Joi.exist(), then: Joi.forbidden() }))
+        .when('price_LTE', ({ is: Joi.exist(), then: Joi.forbidden() })),
 
     price_GTE: Joi.number()
         .integer()
@@ -31,11 +35,21 @@ module.exports = Joi.object({
         .min(1)
         .optional(),
 
-    year_builded: Joi.number().integer().optional(),
+    year_builded: Joi.number()
+        .integer()
+        .optional()
+        .when('year_builded_GTE', ({ is: Joi.exist(), then: Joi.forbidden() }))
+        .when('year_builded_LTE', ({ is: Joi.exist(), then: Joi.forbidden() })),
+
     year_builded_GTE: Joi.number().integer().optional(),
     year_builded_LTE: Joi.number().integer().optional(),
 
-    year_selled: Joi.number().integer().optional(),
+    year_selled: Joi.number()
+        .integer()
+        .optional()
+        .when('year_selled_GTE', ({ is: Joi.exist(), then: Joi.forbidden() }))
+        .when('year_selled_LTE', ({ is: Joi.exist(), then: Joi.forbidden() })),
+
     year_selled_GTE: Joi.number().integer().optional(),
     year_selled_LTE: Joi.number().integer().optional(),
 

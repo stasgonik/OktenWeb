@@ -28,6 +28,24 @@ module.exports = {
         return filterObject;
     },
 
+    fileUpdateObjectBuilder: (uploadPath, itemType) => {
+        let updateObject = {};
+
+        if (itemType === itemTypeEnum.AVATAR) {
+            updateObject = { $set: { [itemType]: uploadPath } };
+            return updateObject;
+        }
+
+        if (itemType === itemTypeEnum.DOCUMENT || itemType === itemTypeEnum.PHOTO) {
+            updateObject = { $push: { [itemType]: uploadPath } };
+            return updateObject;
+        }
+
+        throw new ErrorHandler(statusCode.BAD_REQUEST,
+            errorMessage.INVALID_FILE_TYPE.customCode,
+            errorMessage.INVALID_FILE_TYPE.en);
+    },
+
     houseFilterObjectBuilder: (filters, keys) => {
         const filterObject = {};
 
@@ -111,23 +129,5 @@ module.exports = {
         });
 
         return filterObject;
-    },
-
-    updateObjectBuilder: (uploadPath, itemType) => {
-        let updateObject = {};
-
-        if (itemType === itemTypeEnum.AVATAR) {
-            updateObject = { $set: { [itemType]: uploadPath } };
-            return updateObject;
-        }
-
-        if (itemType === itemTypeEnum.DOCUMENT || itemType === itemTypeEnum.PHOTO) {
-            updateObject = { $push: { [itemType]: uploadPath } };
-            return updateObject;
-        }
-
-        throw new ErrorHandler(statusCode.BAD_REQUEST,
-            errorMessage.INVALID_FILE_TYPE.customCode,
-            errorMessage.INVALID_FILE_TYPE.en);
     },
 };

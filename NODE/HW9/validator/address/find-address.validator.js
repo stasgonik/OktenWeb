@@ -25,7 +25,13 @@ module.exports = Joi.object({
         .max(100)
         .optional(),
 
-    number: Joi.number().integer().min(1).optional(),
+    number: Joi.number()
+        .integer()
+        .min(1)
+        .optional()
+        .when('number_GTE', ({ is: Joi.exist(), then: Joi.forbidden() }))
+        .when('number_LTE', ({ is: Joi.exist(), then: Joi.forbidden() })),
+
     number_GTE: Joi.number().integer().min(1).optional(),
     number_LTE: Joi.number().integer().min(1).optional(),
 
