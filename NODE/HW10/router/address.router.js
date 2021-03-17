@@ -12,7 +12,6 @@ router.post('/', fileMiddleware.checkFiles, addressMiddleware.isAddressValid, ad
 
 router.use('/:addressId',
     authMiddleware.checkAccessToken,
-    addressMiddleware.isIdValid,
     addressMiddleware.isAddressExist);
 
 router.get('/:addressId', addressController.getSingleAddress);

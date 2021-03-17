@@ -1,21 +1,10 @@
-//     createAddress: (address) => Address.create(address),
-//
-//     findAddressById: (addressId) => Address.findById(addressId),
-//
-//     deleteAddress: (addressId) => Address.findByIdAndRemove(addressId),
-//
-//     updateOne: (addressId, updateObject) => Address.updateOne({ _id: addressId }, updateObject, { upsert: true })
-// };
-
-const db = require('../database').getInstance();
+const { Address } = require('../database/model');
 const { queryBuilder: { addressFilterObjectBuilder }, utilHelper: { preFindQueryHelper } } = require('../helper');
 
 module.exports = {
     findAddresses: async (query) => {
-        const Address = db.getModel('Address');
-
         const {
-            limit, filters, keys, skip, page, sort
+            limit, filters, keys, offset, page, sort
         } = preFindQueryHelper(query);
 
         const filterObject = addressFilterObjectBuilder(filters, keys);
@@ -23,7 +12,7 @@ module.exports = {
         const addresses = await Address.findAll({
             where: filterObject,
             sort,
-            offset: skip,
+            offset,
             limit
         });
 
@@ -38,21 +27,15 @@ module.exports = {
             count
         };
     },
-    createAddress: (address) => {
-        const Address = db.getModel('Address');
+    createAddress: (address) => Address.create(address),
 
-        return Address.create(address);
-    },
-
-    findAddressById: (addressId) => {
-        const Address = db.getModel('Address');
-
-        return Address.findByPk(addressId);
-    },
+    findAddressById: (addressId) => Address.findByPk(addressId),
 
     deleteAddress: async (addressId) => {
-        const Address = db.getModel('Address');
-
-        await Address.findByIdAndDelete(addressId);
+        await Address.destroy({
+            where: {
+                id: addressId
+            }
+        });
     },
 };

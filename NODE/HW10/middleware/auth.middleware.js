@@ -30,7 +30,7 @@ module.exports = {
         try {
             const { body: { email }, query: { preferL = 'en' } } = req;
 
-            const user = await userService.findOneUser({ email }).select('+password');
+            const user = await userService.findOneUser({ email });
 
             if (!user) {
                 throw new ErrorHandler(statusCode.NOT_FOUND,
@@ -65,7 +65,7 @@ module.exports = {
                 }
             });
 
-            const tokens = await authService.findToken({ access_token }).populate('_user_id');
+            const tokens = await authService.findToken({ access_token });
 
             if (!tokens) {
                 throw new ErrorHandler(statusCode.FORBIDDEN,
@@ -73,7 +73,7 @@ module.exports = {
                     errorMessage.SUSPICIOUS_TOKEN[preferL]);
             }
 
-            req.user = tokens._user_id;
+            req.user = await userService.findUserById(tokens.userId);
 
             next();
         } catch (e) {

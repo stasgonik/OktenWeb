@@ -5,9 +5,7 @@ const fileUpload = require('express-fileupload');
 const path = require('path');
 
 dotenv.config({ path: path.join(process.cwd(), '../.env') });
-const db = require('./database').getInstance();
-
-db.setModels();
+const { sequelize } = require('./database');
 
 const { PORT } = require('./config/config');
 const apiRouter = require('./router/api.router');
@@ -34,9 +32,12 @@ app.use('*', (err, req, res, next) => {
         });
 });
 
-app.listen(PORT, () => {
-    console.log('Starting NODE SERVER, proceed to localhost:5042');
-});
+(async () => {
+    await sequelize.sync({ alter: true });
+    app.listen(PORT, () => {
+        console.log(`Starting NODE SERVER, proceed to localhost:${PORT}`);
+    });
+})();
 
 // function _connectToDB() {
 //     mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });

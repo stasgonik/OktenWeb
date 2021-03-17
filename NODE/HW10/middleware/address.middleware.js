@@ -2,27 +2,9 @@ const { statusCodeEnum: statusCode } = require('../constant');
 const { ErrorHandler } = require('../helper');
 const { errorMessage } = require('../message');
 const { addressService } = require('../service');
-const { utilValidators, addressValidators } = require('../validator');
+const { addressValidators } = require('../validator');
 
 module.exports = {
-    isIdValid: async (req, res, next) => {
-        try {
-            const { addressId } = req.params;
-
-            const { error } = await utilValidators.idMongooseValidator.validate(addressId);
-
-            if (error) {
-                throw new ErrorHandler(statusCode.BAD_REQUEST,
-                    errorMessage.JOI_VALIDATION_ERROR.customCode,
-                    error.details[0].message);
-            }
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    },
-
     isAddressValid: async (req, res, next) => {
         try {
             const { error } = await addressValidators.createAddressValidator.validate(req.body);

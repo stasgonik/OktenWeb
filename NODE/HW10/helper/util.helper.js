@@ -18,14 +18,14 @@ module.exports = {
         const {
             limit = 10, page = 1, sortBy = 'id', order = 'ASC', ...filters
         } = query;
-        const skip = (page - 1) * limit;
+        const offset = (page - 1) * limit;
         const keys = Object.keys(filters);
         const sort = [[
             sortBy,
             order
         ]];
         return {
-            limit, skip, filters, keys, sort, page
+            limit, offset, filters, keys, sort, page
         };
     },
 };

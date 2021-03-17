@@ -1,28 +1,33 @@
+const { Token } = require('../database/model');
 const { tokenizer } = require('../helper');
-const { Token } = require('../model');
 
 module.exports = {
     generateTokens: async (user) => {
         const tokens = tokenizer();
 
-        await Token.create({ ...tokens, _user_id: user._id });
+        await Token.create({ ...tokens, userId: user.id });
 
         return tokens;
     },
 
     refreshTokens: async (oldTokens) => {
-        await Token.findByIdAndRemove(oldTokens._id);
-
         const tokens = tokenizer();
 
-        await Token.create({ ...tokens, _user_id: oldTokens._user_id });
+        await Token.findOne({
+            where: { id: oldTokens.id }
+        })
+            .then((record) => {
+                record.update({
+                    ...tokens
+                });
+            });
 
         return tokens;
     },
 
     deleteAllUserTokens: async (userId) => {
-        await Token.remove({ _user_id: userId });
+        await Token.destroy({ where: { userId } });
     },
 
-    findToken: (filterObject) => Token.findOne(filterObject),
+    findToken: (filterObject) => Token.findOne({ where: filterObject }),
 };

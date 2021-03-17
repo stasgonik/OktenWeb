@@ -14,7 +14,7 @@ module.exports = {
             // Просто для пробы еще тут добавил, вообще так себе идея, ну ладно
             const date = new Date().toLocaleString();
 
-            await emailService.sendMail(user.email, emailAction.ACCOUNT_ACCESSED, { name: user.full_name, date });
+            await emailService.sendMail(user.email, emailAction.ACCOUNT_ACCESSED, { name: user.first_name, date });
 
             res.status(statusCode.OK).json(tokens);
         } catch (e) {

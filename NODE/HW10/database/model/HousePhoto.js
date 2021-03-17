@@ -1,24 +1,50 @@
-const { DataTypes } = require('sequelize');
+// const { DataTypes } = require('sequelize');
+//
+// module.exports = (client) => {
+//     const HousePhoto = client.define(
+//         'HousePhoto',
+//         {
+//             id: {
+//                 type: DataTypes.INTEGER,
+//                 primaryKey: true,
+//                 autoIncrement: true
+//             },
+//             filePath: {
+//                 type: DataTypes.STRING,
+//                 allowNull: false
+//             },
+//         },
+//         {
+//             tableName: 'housePhotos',
+//             timestamps: false
+//         }
+//     );
+//
+//     return HousePhoto;
+// };
 
-module.exports = (client) => {
-    const HousePhoto = client.define(
-        'HousePhoto',
-        {
-            id: {
-                type: DataTypes.INTEGER,
-                primaryKey: true,
-                autoIncrement: true
-            },
-            path: {
-                type: DataTypes.STRING,
-                required: true
-            },
+const { DataTypes, Model } = require('sequelize');
+const { sequelize } = require('../index');
+
+class HousePhoto extends Model {}
+
+HousePhoto.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
         },
-        {
-            tableName: 'housePhotos',
-            timestamps: false
-        }
-    );
+        filePath: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+    },
+    {
+        sequelize,
+        tableName: 'housephotos',
+        timestamps: false
+    }
+);
 
-    return HousePhoto;
-};
+module.exports = HousePhoto;

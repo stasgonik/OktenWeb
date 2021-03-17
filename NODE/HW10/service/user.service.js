@@ -1,18 +1,24 @@
+const { User } = require('../database/model');
 const { queryBuilder: { userFilterObjectBuilder }, utilHelper: { preFindQueryHelper } } = require('../helper');
-const { User } = require('../model');
-require('../model/Address');
-require('../model/House');
 
 module.exports = {
-    findUsers: async (query = {}) => {
+    findUsers: async (query) => {
         const {
-            limit, filters, keys, skip, page, sort
+            limit, filters, keys, offset, page, sort
         } = preFindQueryHelper(query);
 
         const filterObject = userFilterObjectBuilder(filters, keys);
 
-        const users = await User.find(filterObject).limit(+limit).skip(skip).sort(sort);
-        const count = await User.countDocuments(filterObject);
+        const users = await User.findAll({
+            where: filterObject,
+            sort,
+            offset,
+            limit
+        });
+
+        const count = await User.count({
+            where: filterObject
+        });
 
         return {
             data: users,
@@ -21,16 +27,28 @@ module.exports = {
             count
         };
     },
-
     createUser: (user) => User.create(user),
 
-    // Эта функция необходима только для поиска User по email в Middleware,
-    // queryBuilder для нее на данном этапе абсолютно не нужен
-    findOneUser: (query) => User.findOne(query),
+    findUserById: (userId) => User.findByPk(userId),
 
-    findUserById: (userId) => User.findById(userId),
+    findOneUser: (query) => User.findOne({
+        where: query
+    }),
 
-    deleteUser: (userId) => User.findByIdAndRemove(userId),
+    deleteUser: async (userId) => {
+        await User.destroy({
+            where: {
+                id: userId
+            }
+        });
+    },
 
-    updateOne: (userId, updateObject) => User.updateOne({ _id: userId }, updateObject, { upsert: true })
+    updateOne: async (userId, updateObject) => {
+        await User.findOne({
+            where: { id: userId }
+        })
+            .then((record) => {
+                record.update(updateObject);
+            });
+    },
 };

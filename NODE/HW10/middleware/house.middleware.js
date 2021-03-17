@@ -2,27 +2,9 @@ const { statusCodeEnum: statusCode } = require('../constant');
 const { ErrorHandler } = require('../helper');
 const { errorMessage } = require('../message');
 const { houseService } = require('../service');
-const { utilValidators, houseValidators } = require('../validator');
+const { houseValidators } = require('../validator');
 
 module.exports = {
-    isIdValid: async (req, res, next) => {
-        try {
-            const { houseId } = req.params;
-
-            const { error } = await utilValidators.idMongooseValidator.validate(houseId);
-
-            if (error) {
-                throw new ErrorHandler(statusCode.BAD_REQUEST,
-                    errorMessage.JOI_VALIDATION_ERROR.customCode,
-                    error.details[0].message);
-            }
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    },
-
     isHouseValid: async (req, res, next) => {
         try {
             const { error } = await houseValidators.createHouseValidator.validate(req.body);

@@ -30,7 +30,7 @@ module.exports = {
 
     createUser: async (req, res, next) => {
         try {
-            const { avatar, body: { email, password }, query: { preferL = 'en' } } = req;
+            const { avatar, body: { email, first_name, password }, query: { preferL = 'en' } } = req;
 
             const hashPassword = await passwordHasher.hash(password);
 
@@ -38,12 +38,10 @@ module.exports = {
 
             if (avatar) {
                 console.log(avatar);
-                await fileService.uploadFile(avatar, itemTypeEnum.AVATAR, user._id, dataBaseSchemaEnum.USER, userService);
+                await fileService.uploadFileOwn(avatar, itemTypeEnum.AVATAR, user.id, dataBaseSchemaEnum.USER, userService);
             }
 
-            const { full_name } = await userService.findOneUser({ email });
-
-            await emailService.sendMail(email, emailAction.ACCOUNT_CREATED, { name: full_name });
+            await emailService.sendMail(email, emailAction.ACCOUNT_CREATED, { name: first_name });
 
             res.status(statusCode.CREATED).json(successMessage.USER_CREATED[preferL]);
         } catch (e) {
@@ -53,12 +51,12 @@ module.exports = {
 
     getSingleUser: async (req, res, next) => {
         try {
-            const { params: { userId }, user: { email, full_name } } = req;
+            const { params: { userId }, user: { email, first_name } } = req;
 
             const user = await userService.findUserById(userId);
             const date = new Date().toLocaleString();
 
-            await emailService.sendMail(email, emailAction.ACCOUNT_INFO_ACCESSED, { name: full_name, date });
+            await emailService.sendMail(email, emailAction.ACCOUNT_INFO_ACCESSED, { name: first_name, date });
 
             res.status(statusCode.OK).json(user);
         } catch (e) {
@@ -68,15 +66,15 @@ module.exports = {
 
     deleteSingleUser: async (req, res, next) => {
         try {
-            const { params: { userId }, query: { preferL = 'en' }, user: { _id, email, full_name } } = req;
+            const { params: { userId }, query: { preferL = 'en' }, user: { email, first_name } } = req;
 
-            await authService.deleteAllUserTokens(_id);
+            await authService.deleteAllUserTokens(userId);
 
             await userService.deleteUser(userId);
 
-            await fileService.deleteUserFiles(_id, dataBaseSchemaEnum.USER);
+            await fileService.deleteUserFiles(userId, dataBaseSchemaEnum.USER);
 
-            await emailService.sendMail(email, emailAction.ACCOUNT_DELETED, { name: full_name });
+            await emailService.sendMail(email, emailAction.ACCOUNT_DELETED, { name: first_name });
 
             res.status(statusCode.OK).json(successMessage.USER_DELETED[preferL]);
         } catch (e) {

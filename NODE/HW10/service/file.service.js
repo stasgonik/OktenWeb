@@ -1,7 +1,10 @@
 const path = require('path');
 const fs = require('fs-extra').promises;
 
-const { queryBuilder: { fileUpdateObjectBuilder }, utilHelper: { fileDirBuilder } } = require('../helper');
+const {
+    queryBuilder: { fileCreateObjectBuilder, fileUpdateObjectBuilder },
+    utilHelper: { fileDirBuilder }
+} = require('../helper');
 
 const _uploadFile = async (file, fileDir, finalFilePath) => {
     await fs.mkdir(fileDir, { recursive: true });
@@ -15,7 +18,7 @@ const _removeFile = async (ownerId, ownerType) => {
 };
 
 module.exports = {
-    uploadFile: async (file, itemType, ownerId, ownerType, ownerService) => {
+    uploadFileOwn: async (file, itemType, ownerId, ownerType, ownerService) => {
         const { fileDir, finalFilePath, uploadPath } = fileDirBuilder(file.name, itemType, ownerId, ownerType);
 
         await _uploadFile(file, fileDir, finalFilePath);
@@ -23,6 +26,18 @@ module.exports = {
         const updateObject = fileUpdateObjectBuilder(uploadPath, itemType);
 
         await ownerService.updateOne(ownerId, updateObject);
+    },
+
+    uploadFileSeparate: async (file, itemType, ownerId, ownerType, itemService) => {
+        const { fileDir, finalFilePath, uploadPath } = fileDirBuilder(file.name, itemType, ownerId, ownerType);
+
+        await _uploadFile(file, fileDir, finalFilePath);
+
+        const createObject = fileCreateObjectBuilder(uploadPath, ownerType, ownerId);
+
+        // await itemService.create(createObject);
+
+        await itemService.createFileEntry(createObject);
     },
 
     deleteUserFiles: async (ownerId, ownerType) => {

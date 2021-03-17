@@ -10,5 +10,6 @@ module.exports = {
     SQL_USER: process.env.SQL_USER || 'root',
     SQL_PASSWORD: process.env.SQL_PASSWORD || 'root',
     SQL_DB: process.env.SQL_DB || 'sep-2020',
-    SQL_DIALEKT: 'mysql'
+    SQL_DIALEKT: 'mysql',
+    HOST: 'localhost'
 };

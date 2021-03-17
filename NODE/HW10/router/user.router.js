@@ -17,7 +17,6 @@ router.post('/',
 
 router.use('/:userId',
     authMiddleware.checkAccessToken,
-    userMiddleware.isIdValid,
     userMiddleware.accessRightsCheck);
 
 router.get('/:userId', userController.getSingleUser);

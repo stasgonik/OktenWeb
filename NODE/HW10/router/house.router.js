@@ -12,7 +12,6 @@ router.post('/', fileMiddleware.checkFiles, houseMiddleware.isHouseValid, houseC
 
 router.use('/:houseId',
     authMiddleware.checkAccessToken,
-    houseMiddleware.isIdValid,
     houseMiddleware.isHouseExist);
 
 router.get('/:houseId', houseController.getSingleHouse);

@@ -4,7 +4,7 @@ const {
     statusCodeEnum: statusCode
 } = require('../constant');
 const { successMessage } = require('../message');
-const { fileService, houseService } = require('../service');
+const { fileService, houseService, housePhotoService } = require('../service');
 
 module.exports = {
     getHouses: async (req, res, next) => {
@@ -30,12 +30,12 @@ module.exports = {
             if (photos) {
                 const promises = [];
                 photos.forEach((photo) => {
-                    promises.push(fileService.uploadFile(
+                    promises.push(fileService.uploadFileSeparate(
                         photo,
                         itemTypeEnum.PHOTO,
-                        house._id,
+                        house.id,
                         dataBaseSchemaEnum.HOUSE,
-                        houseService
+                        housePhotoService
                     ));
                 });
                 await Promise.allSettled(promises);

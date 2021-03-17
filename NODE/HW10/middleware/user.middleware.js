@@ -2,27 +2,9 @@ const { statusCodeEnum: statusCode } = require('../constant');
 const { ErrorHandler } = require('../helper');
 const { errorMessage } = require('../message');
 const { userService } = require('../service');
-const { utilValidators, userValidators } = require('../validator');
+const { userValidators } = require('../validator');
 
 module.exports = {
-    isIdValid: async (req, res, next) => {
-        try {
-            const { userId } = req.params;
-
-            const { error } = await utilValidators.idMongooseValidator.validate(userId);
-
-            if (error) {
-                throw new ErrorHandler(statusCode.BAD_REQUEST,
-                    errorMessage.JOI_VALIDATION_ERROR.customCode,
-                    error.details[0].message);
-            }
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    },
-
     isUserValid: async (req, res, next) => {
         try {
             const { error } = await userValidators.createUserValidator.validate(req.body);

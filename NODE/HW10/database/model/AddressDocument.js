@@ -1,24 +1,50 @@
-const { DataTypes } = require('sequelize');
+// const { DataTypes } = require('sequelize');
+//
+// module.exports = (client) => {
+//     const AddressDocument = client.define(
+//         'AddressDocument',
+//         {
+//             id: {
+//                 type: DataTypes.INTEGER,
+//                 primaryKey: true,
+//                 autoIncrement: true
+//             },
+//             filePath: {
+//                 type: DataTypes.STRING,
+//                 allowNull: false
+//             },
+//         },
+//         {
+//             tableName: 'addressDocuments',
+//             timestamps: false
+//         }
+//     );
+//
+//     return AddressDocument;
+// };
 
-module.exports = (client) => {
-    const AddressDocument = client.define(
-        'AddressDocument',
-        {
-            id: {
-                type: DataTypes.INTEGER,
-                primaryKey: true,
-                autoIncrement: true
-            },
-            path: {
-                type: DataTypes.STRING,
-                required: true
-            },
+const { DataTypes, Model } = require('sequelize');
+const { sequelize } = require('../index');
+
+class AddressDocument extends Model {}
+
+AddressDocument.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
         },
-        {
-            tableName: 'addressDocuments',
-            timestamps: false
-        }
-    );
+        filePath: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+    },
+    {
+        sequelize,
+        tableName: 'addressdocuments',
+        timestamps: false
+    }
+);
 
-    return AddressDocument;
-};
+module.exports = AddressDocument;
