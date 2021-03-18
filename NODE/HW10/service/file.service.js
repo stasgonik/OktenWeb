@@ -35,8 +35,6 @@ module.exports = {
 
         const createObject = fileCreateObjectBuilder(uploadPath, ownerType, ownerId);
 
-        // await itemService.create(createObject);
-
         await itemService.createFileEntry(createObject);
     },
 

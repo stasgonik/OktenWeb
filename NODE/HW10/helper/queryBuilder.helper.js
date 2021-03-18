@@ -26,7 +26,7 @@ module.exports = {
         return filterObject;
     },
 
-    fileCreateObjectBuilder: (uploadPath, ownerType, ownerId) => ({ filePath: uploadPath,  [itemType]: ownerId }),
+    fileCreateObjectBuilder: (uploadPath, ownerType, ownerId) => ({ filePath: uploadPath, [ownerType]: ownerId }),
 
     fileUpdateObjectBuilder: (uploadPath, itemType) => ({ [itemType]: uploadPath }),
 
