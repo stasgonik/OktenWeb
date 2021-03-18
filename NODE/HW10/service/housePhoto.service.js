@@ -4,11 +4,9 @@ module.exports = {
     createFileEntry: async (photoObject) => {
         await HousePhoto.create(photoObject);
     },
-    deleteFile: async (photoId) => {
+    deleteFileEntry: async (filter) => {
         await HousePhoto.destroy({
-            where: {
-                id: photoId
-            }
+            where: filter
         });
-    }
+    },
 };

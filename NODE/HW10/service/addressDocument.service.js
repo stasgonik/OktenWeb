@@ -4,11 +4,9 @@ module.exports = {
     createFileEntry: async (documentObject) => {
         await AddressDocument.create(documentObject);
     },
-    deleteFileEntry: async (documentId) => {
+    deleteFileEntry: async (filter) => {
         await AddressDocument.destroy({
-            where: {
-                id: documentId
-            }
+            where: filter
         });
     }
 };

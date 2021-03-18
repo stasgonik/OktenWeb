@@ -63,9 +63,11 @@ module.exports = {
         try {
             const { params: { houseId }, query: { preferL = 'en' } } = req;
 
-            await houseService.deleteHouse(houseId);
-
             await fileService.deleteUserFiles(houseId, dataBaseSchemaEnum.HOUSE);
+
+            await housePhotoService.deleteFileEntry({ House: houseId });
+
+            await houseService.deleteHouse(houseId);
 
             res.status(statusCode.OK).json(successMessage.HOUSE_DELETED[preferL]);
         } catch (e) {
