@@ -67,7 +67,7 @@ module.exports = {
         try {
             const { params: { userId }, query: { preferL = 'en' }, user } = req;
 
-            if (userId !== user.id) {
+            if (+userId !== user.id) {
                 throw new ErrorHandler(statusCode.UNAUTHORIZED,
                     errorMessage.UNAUTHORISED_ACCESS.customCode,
                     errorMessage.UNAUTHORISED_ACCESS[preferL]);
