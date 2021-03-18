@@ -1,32 +1,3 @@
-// const { DataTypes } = require('sequelize');
-//
-// module.exports = (client) => {
-//     const Token = client.define(
-//         'Token',
-//         {
-//             id: {
-//                 type: DataTypes.INTEGER,
-//                 primaryKey: true,
-//                 autoIncrement: true
-//             },
-//             access_token: {
-//                 type: DataTypes.STRING,
-//                 allowNull: false
-//             },
-//             refresh_token: {
-//                 type: DataTypes.STRING,
-//                 allowNull: false
-//             },
-//         },
-//         {
-//             tableName: 'tokens',
-//             timestamps: false
-//         }
-//     );
-//
-//     return Token;
-// };
-
 const { DataTypes, Model } = require('sequelize');
 const { sequelize } = require('../index');
 

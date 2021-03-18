@@ -1,7 +1,6 @@
 const dotenv = require('dotenv');
 const express = require('express');
 const fileUpload = require('express-fileupload');
-// const mongoose = require('mongoose');
 const path = require('path');
 
 dotenv.config({ path: path.join(process.cwd(), '../.env') });
@@ -11,8 +10,6 @@ const { PORT } = require('./config/config');
 const apiRouter = require('./router/api.router');
 
 const app = express();
-
-// _connectToDB();
 
 app.use(fileUpload());
 
@@ -38,13 +35,3 @@ app.use('*', (err, req, res, next) => {
         console.log(`Starting NODE SERVER, proceed to localhost:${PORT}`);
     });
 })();
-
-// function _connectToDB() {
-//     mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-//
-//     const { connection } = mongoose;
-//
-//     connection.on('error', (error) => {
-//         console.log(error);
-//     });
-// }

@@ -1,28 +1,3 @@
-// const { DataTypes } = require('sequelize');
-//
-// module.exports = (client) => {
-//     const AddressDocument = client.define(
-//         'AddressDocument',
-//         {
-//             id: {
-//                 type: DataTypes.INTEGER,
-//                 primaryKey: true,
-//                 autoIncrement: true
-//             },
-//             filePath: {
-//                 type: DataTypes.STRING,
-//                 allowNull: false
-//             },
-//         },
-//         {
-//             tableName: 'addressDocuments',
-//             timestamps: false
-//         }
-//     );
-//
-//     return AddressDocument;
-// };
-
 const { DataTypes, Model } = require('sequelize');
 const { sequelize } = require('../index');
 

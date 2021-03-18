@@ -31,7 +31,7 @@ module.exports = {
 
     findUserById: (userId) => User.findByPk(userId),
 
-    findOneUser: (query) => User.findOne({
+    findOneUser: (query, chosenScope = 'defaultScope') => User.scope(chosenScope).findOne({
         where: query
     }),
 
