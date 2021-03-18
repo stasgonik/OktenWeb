@@ -13,10 +13,10 @@ module.exports = {
                     filterObject.number = Object.assign({}, filterObject.number, { [Op.lte]: +filters.number_LTE });
                     break;
                 case 'town':
-                    filterObject.town = { [Op.like]: filters.town };
+                    filterObject.town = { [Op.like]: `%${filters.town}%` };
                     break;
                 case 'street':
-                    filterObject.street = { [Op.like]: filters.street };
+                    filterObject.street = { [Op.like]: `%${filters.street}%` };
                     break;
                 default:
                     filterObject[key] = filters[key];
@@ -99,13 +99,10 @@ module.exports = {
                     filterObject.age = Object.assign({}, filterObject.age, { [Op.lte]: +filters.age_LTE });
                     break;
                 case 'first_name':
-                    filterObject.first_name = { [Op.like]: filters.first_name };
+                    filterObject.first_name = { [Op.like]: `%${filters.first_name}%` };
                     break;
                 case 'last_name':
-                    filterObject.last_name = { [Op.like]: filters.last_name };
-                    break;
-                case 'full_name':
-                    filterObject.full_name = { [Op.like]: filters.full_name };
+                    filterObject.last_name = { [Op.like]: `%${filters.last_name}%` };
                     break;
                 default:
                     filterObject[key] = filters[key];

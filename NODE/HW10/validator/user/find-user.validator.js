@@ -41,12 +41,6 @@ module.exports = Joi.object({
         .allow('male', 'female', 'other')
         .optional(),
 
-    full_name: Joi.string()
-        .alphanum()
-        .min(2)
-        .max(101)
-        .optional(),
-
     limit: Joi.number()
         .integer()
         .min(2)
