@@ -35,7 +35,7 @@ module.exports = {
         try {
             const { body: { email }, query: { preferL = 'en' } } = req;
 
-            const user = await userService.findOneUser({ email }, 'withPassword');
+            const user = await userService.findOneUser({ email }, 'getAll');
 
             if (!user) {
                 throw new ErrorHandler(statusCode.NOT_FOUND,
