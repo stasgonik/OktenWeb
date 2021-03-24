@@ -3,8 +3,8 @@ const {
     itemTypeEnum,
     statusCodeEnum: statusCode
 } = require('../constant');
-const { successMessage } = require('../message');
 const { sequelize } = require('../database');
+const { successMessage } = require('../message');
 const { fileService, houseService, housePhotoService } = require('../service');
 
 module.exports = {

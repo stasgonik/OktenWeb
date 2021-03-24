@@ -4,9 +4,9 @@ const {
     itemTypeEnum,
     statusCodeEnum: statusCode
 } = require('../constant');
+const { sequelize } = require('../database');
 const { passwordHasher } = require('../helper');
 const { successMessage } = require('../message');
-const { sequelize } = require('../database');
 const {
     authService,
     emailService,
@@ -39,7 +39,6 @@ module.exports = {
             const user = await userService.createUser({ ...req.body, password: hashPassword }, transaction);
 
             if (avatar) {
-                console.log(avatar);
                 await fileService.uploadFileOwn(
                     avatar,
                     itemTypeEnum.AVATAR,

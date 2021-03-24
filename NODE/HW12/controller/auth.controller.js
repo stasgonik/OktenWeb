@@ -1,6 +1,6 @@
 const { emailActionEnum: emailAction, statusCodeEnum: statusCode } = require('../constant');
-const { passwordHasher } = require('../helper');
 const { sequelize } = require('../database');
+const { passwordHasher } = require('../helper');
 const { authService, emailService } = require('../service');
 
 module.exports = {
@@ -30,9 +30,9 @@ module.exports = {
     generateNewTokenPair: async (req, res, next) => {
         const transaction = await sequelize.transaction();
         try {
-            const { oldTokens } = req;
+            const { oldTokens, role } = req;
 
-            const tokens = await authService.refreshTokens(oldTokens, transaction);
+            const tokens = await authService.refreshTokens(oldTokens, role, transaction);
 
             transaction.commit();
 
