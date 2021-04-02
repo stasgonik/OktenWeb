@@ -1,0 +1,120 @@
+{
+  "status": 400,
+  "message": "User with this email is already exist in database",
+  "code": 4002,
+  "level": "error",
+  "timestamp": "2021-04-02 15:12:41"
+}
+{
+  "message": "Cannot read property 'id' of undefined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:35:32"
+}
+{
+  "message": "ErrorHandler is not a constructor",
+  "level": "error",
+  "timestamp": "2021-04-02 16:36:56"
+}
+{
+  "message": "ErrorHandler is not a constructor",
+  "level": "error",
+  "timestamp": "2021-04-02 16:37:01"
+}
+{
+  "message": "Wrong name or password",
+  "level": "error",
+  "timestamp": "2021-04-02 16:38:08"
+}
+{
+  "message": "No recipients defined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:42:16"
+}
+{
+  "message": "No recipients defined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:44:12"
+}
+{
+  "message": "No recipients defined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:44:23"
+}
+{
+  "status": 400,
+  "message": "\"password\" with value \"Jorgee\" fails to match the required pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/",
+  "code": 4001,
+  "level": "error",
+  "timestamp": "2021-04-02 16:44:31"
+}
+{
+  "message": "No recipients defined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:44:53"
+}
+{
+  "message": "No recipients defined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:45:45"
+}
+{
+  "message": "No recipients defined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:45:46"
+}
+{
+  "message": "No recipients defined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:47:59"
+}
+{
+  "message": "No recipients defined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:49:31"
+}
+{
+  "message": "No recipients defined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:52:26"
+}
+{
+  "message": "Cannot read property 'email' of undefined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:54:06"
+}
+{
+  "message": "Cannot read property 'email' of undefined",
+  "level": "error",
+  "timestamp": "2021-04-02 16:54:54"
+}
+{
+  "status": 401,
+  "message": "Your access token is not valid",
+  "code": 4011,
+  "level": "error",
+  "timestamp": "2021-04-02 17:26:23"
+}
+{
+  "status": 403,
+  "message": "Your access token doesnt exist in database",
+  "code": 4031,
+  "level": "error",
+  "timestamp": "2021-04-02 17:27:12"
+}
+{
+  "status": 404,
+  "message": "Search on database have no results",
+  "code": 4041,
+  "level": "error",
+  "timestamp": "2021-04-02 17:27:22"
+}
+{
+  "message": "Validation error",
+  "level": "error",
+  "timestamp": "2021-04-02 17:27:30"
+}
+{
+  "message": "Validation error",
+  "level": "error",
+  "timestamp": "2021-04-02 17:27:34"
+}
