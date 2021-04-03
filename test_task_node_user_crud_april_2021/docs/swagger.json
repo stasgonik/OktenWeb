@@ -1,0 +1,636 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "user-CRUD-test-task",
+    "description": "This is CRUD for user"
+  },
+  "paths": {
+    "/docs": {
+      "get": {
+        "description": "This is current path. It contains documentation for this app.",
+        "operationId": "0",
+        "tags": [
+          "docs"
+        ],
+        "responses": {
+          "200": {
+            "description": "Standard result for this path."
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "description": "This path must be used to get all users that fit some filter.",
+        "operationId": "getAllUsers",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "This is access token of user, that user will get after login in app."
+          },
+          {
+            "name": "age",
+            "in": "formData",
+            "type": "integer"
+          },
+          {
+            "name": "gender",
+            "in": "formData",
+            "type": "string",
+            "description": "Must me male, female or other, any other value will be denied"
+          },
+          {
+            "name": "first_name",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "last_name",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/"
+          },
+          {
+            "name": "age_GTE",
+            "in": "formData",
+            "type": "integer",
+            "description": "When age must be more then some number"
+          },
+          {
+            "name": "age_LTE",
+            "in": "formData",
+            "type": "integer",
+            "description": "When age must be lesser then some number"
+          },
+          {
+            "name": "limit",
+            "in": "formData",
+            "type": "integer",
+            "default": 10,
+            "required": true
+          },
+          {
+            "name": "page",
+            "in": "formData",
+            "type": "integer",
+            "default": 1,
+            "required": true
+          },
+          {
+            "name": "sortBy",
+            "in": "formData",
+            "type": "string",
+            "default": "id",
+            "required": true
+          },
+          {
+            "name": "order",
+            "in": "formData",
+            "type": "string",
+            "description": "Must be ASC or DESC",
+            "default": "ASC",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User search was successfully done.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/User"
+                  }
+                },
+                "page": {
+                  "type": "integer",
+                  "description": "Current page of users to view",
+                  "example": 4
+                },
+                "limit": {
+                  "type": "integer",
+                  "description": "Maximum of users on one page",
+                  "example": 10
+                },
+                "count": {
+                  "type": "integer",
+                  "description": "Overall number of pages of users, that fit parameters",
+                  "example": 24
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Can appear in case of: 1.Invalid search query - code 4001; 2.There are no access token in header - code 4003."
+          },
+          "401": {
+            "description": "Can appear in case if access token is invalid or expired - code 4011."
+          },
+          "403": {
+            "description": "Can appear in case if access token is valid, but do not exist in database - code 4031."
+          },
+          "500": {
+            "description": "Any other error gonna have this default status."
+          }
+        }
+      },
+      "post": {
+        "description": "This path must be used to create new user for this app.",
+        "operationId": "createUser",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "age",
+            "in": "formData",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "gender",
+            "in": "formData",
+            "type": "string",
+            "description": "Must me male, female or other, any other value will be denied"
+          },
+          {
+            "name": "first_name",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "last_name",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "pattern": "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/"
+          },
+          {
+            "name": "avatar",
+            "in": "formData",
+            "type": "file",
+            "description": "For the user avatar it must be photo or image. Document files will be ignored. Uploading any other type of files will result in exception."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User was successfully created and stored in database.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User was successfully created"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Can appear in case of: 1.Invalid object of user for creation - code 4001; 2.Unknown or invalid file type was uploaded - code 4006; 3.Uploaded file is too big - code 4007; 4.More than one photo was uploaded - code 4008; 5. User with this email already exist - code 4002; 6.If email-template action was not found - code 4005."
+          },
+          "500": {
+            "description": "Any other error gonna have this default status."
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "description": "Used to get info of user by this same user",
+        "tags": ["Users"],
+        "operationId": "getSingleUserById",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "This is access token of user, that user will get after login in app."
+          },
+          {
+            "name": "userId",
+            "type": "integer",
+            "in": "path",
+            "description": "User id in database.",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was successfully found and returned from database.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Can appear in case if there are no access token in header - code 4003."
+          },
+          "401": {
+            "description": "Can appear in case if access token is invalid or expired - code 4011."
+          },
+          "403": {
+            "description": "Can appear in case of: 1.If access token is valid, but do not exist in database - code 4031; 2.User do not have access to the information of other users - code 4032."
+          },
+          "500": {
+            "description": "Any other error gonna have this default status."
+          }
+        }
+      },
+      "delete": {
+        "description": "Used by user to delete its account",
+        "tags": ["Users"],
+        "operationId": "deleteSingleUser",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "This is access token of user, that user will get after login in app."
+          },
+          {
+            "name": "userId",
+            "type": "integer",
+            "in": "path",
+            "description": "User id in database.",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User was successfully deleted from database.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User was successfully deleted'"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Can appear in case of: 1.There are no access token in header - code 4003; 2.If email-template action was not found - code 4005."
+          },
+          "401": {
+            "description": "Can appear in case if access token is invalid or expired - code 4011."
+          },
+          "403": {
+            "description": "Can appear in case of: 1.If access token is valid, but do not exist in database - code 4031; 2.User do not have access to the account of other users - code 4032."
+          },
+          "500": {
+            "description": "Any other error gonna have this default status."
+          }
+        }
+      },
+      "patch": {
+        "description": "Used by user to update info of its account",
+        "tags": ["Users"],
+        "operationId": "updateSingleUser",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "This is access token of user, that user will get after login in app."
+          },
+          {
+            "name": "userId",
+            "type": "integer",
+            "in": "path",
+            "description": "User id in database.",
+            "required": true
+          },
+          {
+            "name": "age",
+            "in": "formData",
+            "type": "integer"
+          },
+          {
+            "name": "gender",
+            "in": "formData",
+            "type": "string",
+            "description": "Must me male, female or other, any other value will be denied"
+          },
+          {
+            "name": "first_name",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "last_name",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string",
+            "pattern": "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/"
+          },
+          {
+            "name": "avatar",
+            "in": "formData",
+            "type": "file",
+            "description": "For the user avatar it must be photo or image. Document files will be ignored. Uploading any other type of files will result in exception."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User was successfully updated.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User was successfully updated"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Can appear in case of: 1.There are no access token in header - code 4003; 2.If email-template action was not found - code 4005; 3.Invalid object of user for update - code 4001; 4.Unknown or invalid file type was uploaded - code 4006; 5.Uploaded file is too big - code 4007; 6.More than one photo was uploaded - code 4008"
+          },
+          "401": {
+            "description": "Can appear in case if access token is invalid or expired - code 4011."
+          },
+          "403": {
+            "description": "Can appear in case of: 1.If access token is valid, but do not exist in database - code 4031; 2.User do not have access to the account of other users - code 4032."
+          },
+          "500": {
+            "description": "Any other error gonna have this default status."
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post": {
+        "description": "This path is used by users to login in app and obtain tokens",
+        "tags": ["Auth"],
+        "operationId": "login",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "pattern": "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully login in app and get tokens.",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+          "400": {
+            "description": "Can appear in case if login info is invalid - code 4001."
+          },
+          "403": {
+            "description": "Can appear in case if user account have status of not activated - code 4033."
+          },
+          "404": {
+            "description": "Can appear in case if user with this login info was not found in database - code 4041."
+          },
+          "500": {
+            "description": "Any other error gonna have this default status."
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "description": "Used to refresh access token by refresh token.",
+        "operationId": "refresh",
+        "tags": ["Auth"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "description": "Obtained by login or previous refresh with access token.",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New token pair was successfully generated and returned.",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+          "400": {
+            "description": "Can appear in case if there are no refresh token in header - code 4004."
+          },
+          "401": {
+            "description": "Can appear in case if refresh token is invalid or expired - code 4012."
+          },
+          "403": {
+            "description": "Can appear in case if refresh token is valid, but do not exist in database - code 4031."
+          },
+          "500": {
+            "description": "Any other error gonna have this default status."
+          }
+        }
+      }
+    },
+    "/special/activateAccount": {
+      "get": {
+        "description": "This route is used to activate user account",
+        "tags": ["Special"],
+        "operationId": "activation",
+        "parameters": [
+          {
+            "name": "activation_token",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Link with this token in query must be send to user email. After activation account will have null instead of this token."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User account was successfully activated",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User was successfully activated"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Can appear in case if there are no activation token in header - code 4009."
+          },
+          "401": {
+            "description": "Can appear in case if activation token is invalid or expired - code 4013."
+          },
+          "403": {
+            "description": "Can appear in case if activation token is valid, but there are no user with this token in database - code 4031."
+          },
+          "500": {
+            "description": "Any other error gonna have this default status."
+          }
+        }
+      }
+    },
+    "/special/forgotPassword": {
+      "patch": {
+        "description": "This route is used to create new password, if user forgotten old one.",
+        "operationId": "forgotPassword",
+        "tags": ["Special"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/"
+          },
+          {
+            "name": "old_password",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "pattern": "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/"
+          },
+          {
+            "name": "new_password",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "pattern": "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User password was successfully changed",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User was successfully updated"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Can appear in case of: 1.Parameters for changing password are invalid - code 4001; 2.If email-template action was not found - code 4005."
+          },
+          "404": {
+            "description": "Can appear in case if user with this email is not found in database"
+          },
+          "500": {
+            "description": "Any other error gonna have this default status."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "description": "This is standard user of this app",
+      "type": "object",
+      "properties": {
+        "activation_token": {
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV2CJ9",
+          "description": "Token to activate account. After activation must be null."
+        },
+        "activation_status": {
+          "type": "boolean",
+          "description": "Status of account.",
+          "default": false
+        },
+        "age": {
+          "type": "integer",
+          "example": 24
+        },
+        "gender": {
+          "type": "string",
+          "example": "male"
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Stanislav"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Gonik"
+        },
+        "password": {
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV2CJ9!",
+          "description": "REMEMBER, database will have hashed password!"
+        },
+        "email": {
+          "type": "string",
+          "example": "example@gmail.com",
+          "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/"
+        },
+        "avatar": {
+          "type": "string",
+          "example": "Users/402/avatar/bla-bla74365872.jpg",
+          "description": "Path for user avatar"
+        }
+      },
+      "required": ["age", "email", "password", "first_name", "last_name"]
+    },
+    "Token": {
+      "description": "Object that contain login info for some user.",
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV3CJ9"
+        },
+        "refresh_token": {
+          "type": "string",
+          "example": "eyJhbGciOi34324NiIsInR5466IkpX23J9"
+        }
+      }
+    }
+  }
+}

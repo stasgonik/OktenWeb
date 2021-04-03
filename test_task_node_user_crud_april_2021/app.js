@@ -3,9 +3,11 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const morgan = require('morgan');
 const path = require('path');
+const swaggerUI = require('swagger-ui-express');
 
 dotenv.config();
 const { sequelize } = require('./database');
+const swaggerDoc = require('./docs/swagger.json');
 
 const { config: { PORT } } = require('./config');
 const apiRouter = require('./router/api.router');
@@ -22,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(process.cwd(), 'public')));
 
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 app.use('/', apiRouter);
 
 // eslint-disable-next-line no-unused-vars

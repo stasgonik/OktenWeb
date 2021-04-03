@@ -26,7 +26,7 @@ module.exports = {
 
             transaction.commit();
 
-            res.status(statusCode.OK).json(successMessage.USER_ACTIVATED[preferL]);
+            res.status(statusCode.CREATED).json(successMessage.USER_ACTIVATED[preferL]);
         } catch (e) {
             transaction.rollback();
             next(e);
@@ -146,7 +146,7 @@ module.exports = {
 
             transaction.commit();
 
-            res.status(statusCode.OK).json(successMessage.USER_UPDATED[preferL]);
+            res.status(statusCode.CREATED).json(successMessage.USER_UPDATED[preferL]);
         } catch (e) {
             transaction.rollback();
             next(e);
